@@ -95,6 +95,14 @@ class ShopCategoryData extends PolymerElement {
     }
   }
 
+  _getUrlForCategory(category) {
+    return 'data/' + category.name + '.json';
+  }
+
+  _reformatJson(json) {
+    return json;
+  }
+
   _fetchItems(category, attempts) {
     this._setFailure(false);
     // Only fetch the items of a category if it has not been previously set.
@@ -102,7 +110,7 @@ class ShopCategoryData extends PolymerElement {
       return;
     }
     this._getResource({
-      url: 'data/' + category.name + '.json',
+      url: this._getUrlForCategory(category), // 'data/' + category.name + '.json',
       onLoad(json) {
         this.set('category.items', json);
       },
@@ -116,6 +124,9 @@ class ShopCategoryData extends PolymerElement {
     fetch(rq.url)
       .then(res => {
         return res.json();
+      })
+      .then(json => {
+        return this._reformatJson(json);
       })
       .then(json => {
         rq.onLoad.bind(this)(json);
