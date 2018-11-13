@@ -3,61 +3,14 @@ import './shop-button.js';
 import './shop-common-styles.js';
 import './shop-form-styles.js';
 
+import { getTemplate } from './getTemplate';
+import * as view from './shop-cart.template.html';
+
 class ShopCart extends PolymerElement {
   static get template() {
-    return html`
-    <style include="shop-common-styles shop-button shop-form-styles">
-
-      .list {
-        margin: 40px 0;
-      }
-
-      .checkout-box {
-        font-weight: bold;
-        text-align: right;
-        margin-right: 10px;
-      }
-
-      .subtotal {
-        margin: 0 64px 0 24px;
-      }
-
-      @media (max-width: 767px) {
-
-        .subtotal {
-          margin: 0 0 0 24px;
-        }
-
-      }
-
-    </style>
-
-    <div class="main-frame">
-      <div class="subsection" visible$="[[!_hasItems]]">
-        <p class="empty-cart">Your <iron-icon icon="shopping-cart"></iron-icon> is empty.</p>
-      </div>
-      <div class="subsection" visible$="[[_hasItems]]">
-        <header>
-          <h1>Your Cart</h1>
-          <span>([[_getPluralizedQuantity(cart.length)]])</span>
-        </header>
-        <div class="list">
-          <dom-repeat items="[[cart]]" as="entry">
-            <template>
-              <shop-cart-item entry="[[entry]]"></shop-cart-item>
-            </template>
-          </dom-repeat>
-        </div>
-        <div class="checkout-box">
-          Total: <span class="subtotal">[[_formatTotal(total)]]</span>
-          <shop-button responsive>
-            <a href="/checkout">Checkout</a>
-          </shop-button>
-        </div>
-      </div>
-    </div>
-    `;
+    return getTemplate(view);
   }
+
   static get is() { return 'shop-cart'; }
 
   static get properties() { return {
