@@ -38,8 +38,8 @@
     "gulp": "^4.0.0",
     "gulp-rename": "^1.3.0",
     "gulp-replace": "^1.0.0",
-    "polymer-cli": "^1.7.0",
+    "polymer-cli": "^1.9.0",
     "prpl-server": "^1.1.0",
-    "wct-browser-legacy": "^1.0.0"
+    "wct-browser-legacy": "^1.0.2"
   }
 }
