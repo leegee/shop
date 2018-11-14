@@ -32,7 +32,7 @@ class Shop404Warning extends PolymerElement {
       <h1>Sorry, we couldn't find that page</h1>
     </div>
     <shop-button>
-      <a href="/">Go to the home page</a>
+      <a href="#">Go to the home page</a>
     </shop-button>
 `;
   }
