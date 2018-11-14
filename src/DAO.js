@@ -1,6 +1,17 @@
 export class DAO {
+    static setSymbol(symbol) {
+        if (Object.keys.indexOf(symbol) == -1) {
+            throw new TypeError('No such currency symbol as "' + symbol + '"');
+        }
+        DAO.symbol = symbol;
+    }
+
     static _formatCurrency(total) {
-        return DAO.symbol + (isNaN(total) ? '' : total.toFixed(2));
+        return isNaN(total) ? '-' : (total * DAO.rates[DAO.symbol]).toLocaleString(undefined, {
+            style: 'currency',
+            currency: DAO.symbols[DAO.symbol],
+            currencyDisplay: 'symbol'
+        });
     }
 
     static getRates() {
@@ -17,8 +28,9 @@ export class DAO {
                 });
             promises.push(promise);
         });
-        Promise.all(promises).then(() => {
+        return Promise.all(promises).then(() => {
             console.log(DAO.rates);
+            DAO.ready = true;
         });
     }
 
@@ -30,9 +42,9 @@ export class DAO {
     }
 }
 
-DAO.instance = null;
+DAO.ready = false;
 
-DAO.symbol = '£';
+DAO.instance = null;
 
 DAO.symbols = {
     '£': 'GBP',
@@ -41,9 +53,13 @@ DAO.symbols = {
     'HUF': 'HUF'
 };
 
+// Factors by which to multiply the values in the data source
 DAO.rates = {
     '£': 0,
-    '€': 0,
+    '€': 1,
     '$': 0,
-    'HUF': 1
+    'HUF': 0
 };
+
+// Set the initial value of the symbol to that used in the data source and ignored in the conversion, as is a factor of 1
+DAO.symbol = '€';

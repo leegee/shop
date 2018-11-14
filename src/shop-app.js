@@ -1,4 +1,4 @@
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import '@polymer/app-layout/app-header/app-header.js';
 import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
 import '@polymer/app-layout/app-toolbar/app-toolbar.js';
@@ -9,6 +9,7 @@ import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/iron-media-query/iron-media-query.js';
 import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-selector/iron-selector.js';
+
 import './shop-category-data.js';
 import './shop-home.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
@@ -69,7 +70,9 @@ class ShopApp extends PolymerElement {
 
   ready() {
     super.ready();
-    DAO.getRates();
+    DAO.getRates().then(() => {
+      console.log('set readyToRender true')
+    });
     // Custom elements polyfill safe way to indicate an element has been upgraded.
     this.removeAttribute('unresolved');
     // listen for custom events
