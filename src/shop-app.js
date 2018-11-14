@@ -15,6 +15,7 @@ import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 
+import { DAO } from './DAO';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-app.template.html';
 
@@ -68,6 +69,7 @@ class ShopApp extends PolymerElement {
 
   ready() {
     super.ready();
+    DAO.getRates();
     // Custom elements polyfill safe way to indicate an element has been upgraded.
     this.removeAttribute('unresolved');
     // listen for custom events
