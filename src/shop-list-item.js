@@ -1,5 +1,6 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
+import { DAO } from './DAO';
 
 class ShopListItem extends PolymerElement {
   static get template() {
@@ -55,7 +56,7 @@ class ShopListItem extends PolymerElement {
   }}
 
   _formatPrice(price) {
-    return price ? '$' + price.toFixed(2) : '';
+    return DAO._formatCurrency(price);
   }
 }
 

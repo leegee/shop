@@ -1,4 +1,4 @@
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import '@polymer/app-layout/app-header/app-header.js';
 import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
 import '@polymer/app-layout/app-toolbar/app-toolbar.js';
@@ -16,7 +16,7 @@ import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 
 import { getTemplate } from './getTemplate';
-import * as view from './shop-app.template.html'; 
+import * as view from './shop-app.template.html';
 
 // performance logging
 window.performance && performance.mark && performance.mark('shop-app - before register');
@@ -28,34 +28,38 @@ class ShopApp extends PolymerElement {
 
   static get is() { return 'shop-app'; }
 
-  static get properties() { return {
-    page: {
-      type: String,
-      reflectToAttribute: true,
-      observer: '_pageChanged'
-    },
+  static get properties() {
+    return {
+      page: {
+        type: String,
+        reflectToAttribute: true,
+        observer: '_pageChanged'
+      },
 
-    numItems: {
-      type: Number,
-      value: 0
-    },
+      numItems: {
+        type: Number,
+        value: 0
+      },
 
-    _shouldShowTabs: {
-      computed: '_computeShouldShowTabs(page, smallScreen)'
-    },
+      _shouldShowTabs: {
+        computed: '_computeShouldShowTabs(page, smallScreen)'
+      },
 
-    _shouldRenderTabs: {
-      computed: '_computeShouldRenderTabs(_shouldShowTabs, loadComplete)'
-    },
+      _shouldRenderTabs: {
+        computed: '_computeShouldRenderTabs(_shouldShowTabs, loadComplete)'
+      },
 
-    _shouldRenderDrawer: {
-      computed: '_computeShouldRenderDrawer(smallScreen, loadComplete)'
+      _shouldRenderDrawer: {
+        computed: '_computeShouldRenderDrawer(smallScreen, loadComplete)'
+      }
     }
-  }}
+  }
 
-  static get observers() { return [
-    '_routePageChanged(routeData.page)'
-  ]}
+  static get observers() {
+    return [
+      '_routePageChanged(routeData.page)'
+    ]
+  }
 
   constructor() {
     super();
@@ -67,17 +71,17 @@ class ShopApp extends PolymerElement {
     // Custom elements polyfill safe way to indicate an element has been upgraded.
     this.removeAttribute('unresolved');
     // listen for custom events
-    this.addEventListener('add-cart-item', (e)=>this._onAddCartItem(e));
-    this.addEventListener('set-cart-item', (e)=>this._onSetCartItem(e));
-    this.addEventListener('clear-cart', (e)=>this._onClearCart(e));
-    this.addEventListener('change-section', (e)=>this._onChangeSection(e));
-    this.addEventListener('announce', (e)=>this._onAnnounce(e));
-    this.addEventListener('dom-change', (e)=>this._domChange(e));
-    this.addEventListener('show-invalid-url-warning', (e)=>this._onFallbackSelectionTriggered(e));
+    this.addEventListener('add-cart-item', (e) => this._onAddCartItem(e));
+    this.addEventListener('set-cart-item', (e) => this._onSetCartItem(e));
+    this.addEventListener('clear-cart', (e) => this._onClearCart(e));
+    this.addEventListener('change-section', (e) => this._onChangeSection(e));
+    this.addEventListener('announce', (e) => this._onAnnounce(e));
+    this.addEventListener('dom-change', (e) => this._domChange(e));
+    this.addEventListener('show-invalid-url-warning', (e) => this._onFallbackSelectionTriggered(e));
     // listen for online/offline
     afterNextRender(this, () => {
-      window.addEventListener('online', (e)=>this._notifyNetworkStatus(e));
-      window.addEventListener('offline', (e)=>this._notifyNetworkStatus(e));
+      window.addEventListener('online', (e) => this._notifyNetworkStatus(e));
+      window.addEventListener('offline', (e) => this._notifyNetworkStatus(e));
     });
   }
 
@@ -132,7 +136,7 @@ class ShopApp extends PolymerElement {
         import('./lazy-resources.js').then(() => {
           // Register service worker if supported.
           if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js', {scope: '/'});
+            navigator.serviceWorker.register('service-worker.js', { scope: '/' });
           }
           this._notifyNetworkStatus();
           this.loadComplete = true;
@@ -143,7 +147,7 @@ class ShopApp extends PolymerElement {
 
   _notifyNetworkStatus() {
     let oldOffline = this.offline;
-    this.offline =  !navigator.onLine;
+    this.offline = !navigator.onLine;
     // Show the snackbar if the user is offline when starting a new session
     // or if the network status changed.
     if (this.offline || (!this.offline && oldOffline === true)) {
@@ -152,7 +156,7 @@ class ShopApp extends PolymerElement {
         this.root.appendChild(this._networkSnackbar);
       }
       this._networkSnackbar.innerHTML = this.offline ?
-          'You are offline' : 'You are online';
+        'You are offline' : 'You are online';
       this._networkSnackbar.open();
     }
   }

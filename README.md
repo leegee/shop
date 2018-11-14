@@ -36,3 +36,7 @@ $ npm run serve:static
 ## Deploying
 
 Our [production deployment of SHOP](https://shop.polymer-project.org/) is hosted on App Engine with Node.js. It can be deployed with [the same steps as PWA Starter Kit](https://polymer.github.io/pwa-starter-kit/building-and-deploying/#deploying-prpl-server).
+
+## PP
+
+https://developer.paypal.com/docs/classic/paypal-payments-standard/integration-guide/buy_now_step_1/

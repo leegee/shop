@@ -9,6 +9,7 @@ import './shop-select.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { microTask } from '@polymer/polymer/lib/utils/async.js';
 
+import { DAO } from './DAO';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-detail.template.html'; 
 
@@ -76,7 +77,7 @@ class ShopDetail extends PolymerElement {
   }
 
   _formatPrice(price) {
-    return price ? '$' + price.toFixed(2) : '';
+    return DAO._formatCurrency(price);
   }
 
   _addToCart() {

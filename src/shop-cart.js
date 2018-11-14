@@ -3,36 +3,39 @@ import './shop-button.js';
 import './shop-common-styles.js';
 import './shop-form-styles.js';
 
+import { DAO } from './DAO';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-cart.template.html';
 
 class ShopCart extends PolymerElement {
+
   static get template() {
     return getTemplate(view);
   }
 
   static get is() { return 'shop-cart'; }
 
-  static get properties() { return {
-
-    total: Number,
-
-    cart: Array,
-
-    visible: {
-      type: Boolean,
-      observer: '_visibleChanged'
-    },
-
-    _hasItems: {
-      type: Boolean,
-      computed: '_computeHasItem(cart.length)'
+  static get properties() {
+    return {
+      sybmol:  {
+        type: String,
+        value: '£'
+      },
+      total: Number,
+      cart: Array,
+      visible: {
+        type: Boolean,
+        observer: '_visibleChanged'
+      },
+      _hasItems: {
+        type: Boolean,
+        computed: '_computeHasItem(cart.length)'
+      }
     }
-
-  }}
+  }
 
   _formatTotal(total) {
-    return isNaN(total) ? '' : '$' + total.toFixed(2);
+    return DAO._formatCurrency(total);
   }
 
   _computeHasItem(cartLength) {
@@ -47,7 +50,8 @@ class ShopCart extends PolymerElement {
     if (visible) {
       // Notify the section's title
       this.dispatchEvent(new CustomEvent('change-section', {
-        bubbles: true, composed: true, detail: { title: 'Your cart' }}));
+        bubbles: true, composed: true, detail: { title: 'Your cart' }
+      }));
     }
   }
 

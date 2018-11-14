@@ -58,7 +58,7 @@
 
     .cart-btn-container {
         position: relative;
-        width: 40px;
+        /* width: 40px; */
     }
 
     .announcer {
@@ -229,6 +229,7 @@
         </div>
         <div class="logo" main-title=""><a href="/" aria-label="SHOP Home">SHOP</a></div>
         <div class="cart-btn-container">
+            $/€/£
             <a href="/cart" tabindex="-1">
                 <paper-icon-button icon="shopping-cart" aria-label$="Shopping cart: [[_computePluralizedQuantity(numItems)]]"></paper-icon-button>
             </a>
@@ -278,7 +279,7 @@
     <!-- detail view of one item -->
     <shop-detail name="detail" route="[[subroute]]" offline="[[offline]]"></shop-detail>
     <!-- cart view -->
-    <shop-cart name="cart" cart="[[cart]]" total="[[total]]"></shop-cart>
+    <shop-cart name="cart" cart="[[cart]]" total="[[total]]" symbol='€'></shop-cart>
     <!-- checkout view -->
     <shop-checkout name="checkout" cart="[[cart]]" total="[[total]]" route="{{subroute}}"></shop-checkout>
 

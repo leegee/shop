@@ -10,6 +10,7 @@ import './shop-checkbox.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
+import { DAO } from './DAO';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-checkout.template.html';
 
@@ -262,7 +263,7 @@ class ShopCheckout extends PolymerElement {
   }
 
   _formatPrice(total) {
-    return isNaN(total) ? '' : '$' + total.toFixed(2);
+    return DAO._formatCurrency(total);
   }
 
   _getEntryTotal(entry) {

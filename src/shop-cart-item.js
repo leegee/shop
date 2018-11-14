@@ -5,6 +5,7 @@ import './shop-icons.js';
 import './shop-image.js';
 import './shop-select.js';
 
+import { DAO } from './DAO';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-cart-item.template.html';
 
@@ -37,7 +38,7 @@ class ShopCartItem extends PolymerElement {
   }
 
   _formatPrice(price) {
-    return price ? '$' + price.toFixed(2) : '';
+    DAO._formatCurrency(price);
   }
 
   _removeItem() {
