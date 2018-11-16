@@ -65,7 +65,6 @@ export class ShopCurrency extends PolymerElement {
     }
 
     _format() {
-        console.log('_format xxxxxxxxxxxxxx', this.symbol, this.value)
         this.formatted = isNaN(this.value) ? '-' : (this.value * ShopCurrency.rates[this.symbol]).toLocaleString(undefined, {
             style: 'currency',
             currency: ShopCurrency.symbols[this.symbol],
