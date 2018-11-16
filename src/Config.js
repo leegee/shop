@@ -1,5 +1,21 @@
 export class Config {
 
+    static get chars2symbols() {
+        return {
+            '£': 'GBP',
+            '€': 'EUR',
+            '$': 'USD',
+            'HUF': 'HUF'
+        }
+    };
+
+    static get defaultSymbol() {
+        return {
+            symbol: 'HUF',
+            char: 'HUF'
+        }
+    }
+
     static get categoryList() {
         return [
             {

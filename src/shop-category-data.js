@@ -1,11 +1,15 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
-import { Config } from './config';
+import { Config } from './Config';
 
 class ShopCategoryData extends PolymerElement {
 
   static get is() { return 'shop-category-data'; }
+
+  static get matchKeys() {
+    return /^gsx\$(.+)$/;
+  }
 
   static get properties() {
     return {
@@ -91,8 +95,10 @@ class ShopCategoryData extends PolymerElement {
     }, attempts);
   }
 
-  _getResource(rq, attempts) {
-    fetch(rq.url)
+  // https://docs.google.com/spreadsheets/d/12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs/edit#gid=0
+  // https://spreadsheets.google.com/feeds/list/12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs/od6/public/values?alt=json
+  _getResource(req, attempts) {
+    fetch(req.url)
       .then(res => {
         return res.json();
       })
@@ -100,15 +106,15 @@ class ShopCategoryData extends PolymerElement {
         return this._reformatJson(json);
       })
       .then(json => {
-        rq.onLoad.bind(this)(json);
+        req.onLoad.bind(this)(json);
       })
       .catch(e => {
         // Flaky connections might fail fetching resources
         if (attempts > 1) {
           this._getResourceDebouncer = Debouncer.debounce(this._getResourceDebouncer,
-            timeOut.after(200), this._getResource.bind(this, rq, attempts - 1));
+            timeOut.after(200), this._getResource.bind(this, req, attempts - 1));
         } else {
-          rq.onError.call(this, e);
+          req.onError.call(this, e);
         }
       })
   }
@@ -118,6 +124,22 @@ class ShopCategoryData extends PolymerElement {
       // Try at most 3 times to get the items.
       this._fetchItems(this._getCategoryObject(this.categoryName), 3);
     }
+  }
+
+  parseGsx(gsx) {
+    const rv = [];
+    gsx.feed.entry.forEach(entry => {
+      const reformed = {};
+      Object.keys(entry).forEach( key => {
+        let m;
+        if (m = key.match(this.matchKeys)) {
+          reformed[m[1]] = entry['$t'];
+        }
+      });
+      rv.push(reformed);
+    });
+    console.log('parsed', rv);
+    return rv;
   }
 
 }
