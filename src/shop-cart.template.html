@@ -37,7 +37,7 @@
             </dom-repeat>
         </div>
         <div class="checkout-box">
-            Total: <span class="subtotal">[[_formatTotal(total)]]</span>
+            Total: <span class="subtotal"><shop-currency value="[[total]]"></shop-currency></span>
             <shop-button responsive>
                 <a href="#/checkout">Checkout</a>
             </shop-button>

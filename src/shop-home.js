@@ -91,12 +91,12 @@ class ShopHome extends PolymerElement {
     <dom-repeat items="[[categories]]">
       <template strip-whitespace="">
         <div class="item">
-          <a class="image-link" href\$="/list/[[item.name]]">
+          <a class="image-link" href\$="#/list/[[item.name]]">
             <shop-image src="[[item.image]]" alt="[[item.title]]" placeholder-img="[[item.placeholder]]"></shop-image>
           </a>
           <h2>[[item.title]]</h2>
           <shop-button>
-            <a aria-label\$="[[item.title]] Shop Now" href\$="/list/[[item.name]]">Shop Now</a>
+            <a aria-label\$="[[item.title]] Shop Now" href\$="#/list/[[item.name]]">Shop Now</a>
           </shop-button>
         </div>
       </template>

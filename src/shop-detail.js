@@ -9,7 +9,7 @@ import './shop-select.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { microTask } from '@polymer/polymer/lib/utils/async.js';
 
-import { DAO } from './DAO';
+import './shop-currency.js';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-detail.template.html'; 
 
@@ -76,10 +76,6 @@ class ShopDetail extends PolymerElement {
     return elem.textContent;
   }
 
-  _formatPrice(price) {
-    return DAO._formatCurrency(price);
-  }
-
   _addToCart() {
     // This event will be handled by shop-app.
     this.dispatchEvent(new CustomEvent('add-cart-item', {
@@ -103,7 +99,6 @@ class ShopDetail extends PolymerElement {
       this._tryReconnect();
     }
   }
-
 }
 
 customElements.define(ShopDetail.is, ShopDetail);

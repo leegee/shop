@@ -174,10 +174,10 @@
 
     .demo-label {
         box-sizing: border-box;
-        width: 120px;
+        width: 240pt;
         padding: 6px;
         margin: 8px auto 0;
-        background-color: var(--app-primary-color);
+        background-color: var(--app-secondary-color);
         color: white;
         text-transform: uppercase;
     }
@@ -218,6 +218,8 @@
 -->
 <shop-cart-data id="cart" cart="{{cart}}" num-items="{{numItems}}" total="{{total}}"></shop-cart-data>
 
+<shop-currency id='currency'></shop-currency>
+
 <app-header role="navigation" id="header" effects="waterfall" condenses="" reveals="">
     <app-toolbar>
         <div class="left-bar-item">
@@ -229,7 +231,14 @@
         </div>
         <div class="logo" main-title=""><a href="#" aria-label="SHOP Home">SHOP</a></div>
         <div class="cart-btn-container">
-            $/€/£
+            <shop-select>
+                <select id="currencySelect" selected={{currency}} required on-change="currencySelectChanged">
+                    <option value='€'>€</option>
+                    <option value="HUF">HUF</option>
+                    <option value='£'>£</option>
+                    <option value="$">$</option>
+                </select>
+            </shop-select>
             <a href="#/cart" tabindex="-1">
                 <paper-icon-button icon="shopping-cart" aria-label$="Shopping cart: [[_computePluralizedQuantity(numItems)]]"></paper-icon-button>
             </a>

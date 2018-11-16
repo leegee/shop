@@ -145,12 +145,12 @@
 
     </style>
 
-    <a href$="/detail/[[entry.item.category]]/[[entry.item.name]]" title$="[[entry.item.title]]">
+    <a href$="#/detail/[[entry.item.category]]/[[entry.item.name]]" title$="[[entry.item.title]]">
       <shop-image src="[[entry.item.image]]" alt="[[entry.item.title]]"></shop-image>
     </a>
     <div class="flex">
       <div class="name">
-        <a href$="/detail/[[entry.item.category]]/[[entry.item.name]]">[[entry.item.title]]</a>
+        <a href$="#/detail/[[entry.item.category]]/[[entry.item.name]]">[[entry.item.title]]</a>
       </div>
       <div class="detail">
         <div class="quantity">
@@ -167,17 +167,15 @@
               <option value="8">8</option>
               <option value="9">9</option>
               <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
             </select>
             <shop-md-decorator aria-hidden="true"></shop-md-decorator>
           </shop-select>
         </div>
         <div class="size">Size: <span>[[entry.size]]</span></div>
-        <div class="price">[[_formatPrice(entry.item.price)]]</div>
+        <div class="price"><shop-currency value=[[entry.item.price]]></shop-currency></div>
 
         <!--
-          Use on-click instead of on-tap to prevent the next cart item to be focused
+          Use on-click instead of on-tap to prevent the next cart item being focused
         -->
         <paper-icon-button class="delete-button" icon="close" aria-label$="Delete item [[entry.item.title]]" on-click="_removeItem"></paper-icon-button>
       </div>

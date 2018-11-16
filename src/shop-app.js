@@ -16,7 +16,7 @@ import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 
-import { DAO } from './DAO';
+import './shop-currency.js';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-app.template.html';
 
@@ -70,9 +70,6 @@ class ShopApp extends PolymerElement {
 
   ready() {
     super.ready();
-    DAO.getRates().then(() => {
-      console.log('set readyToRender true')
-    });
     // Custom elements polyfill safe way to indicate an element has been upgraded.
     this.removeAttribute('unresolved');
     // listen for custom events
@@ -289,6 +286,19 @@ class ShopApp extends PolymerElement {
   _computePluralizedQuantity(quantity) {
     return quantity + ' ' + (quantity === 1 ? 'item' : 'items');
   }
+
+  currencySelectChanged() {
+    this.$.currency.setAttribute('symbol', this.$.currencySelect.value);
+    document.dispatchEvent( new CustomEvent('currency-changed', {
+      bubbles: true,
+      composed: true,
+      detail: {
+        symbol: this.$.currencySelect.value
+      }
+    }))
+    console.log('_currencySelectChange local symbol = ', this.$.currency.symbol);
+  }
+
 }
 
 customElements.define(ShopApp.is, ShopApp);

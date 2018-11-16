@@ -122,7 +122,7 @@
   <shop-image alt="[[item.title]]" src="[[item.largeImage]]"></shop-image>
   <div class="detail" has-content$="[[_isDefined(item)]]">
     <h1>[[item.title]]</h1>
-    <div class="price">[[_formatPrice(item.price)]]</div>
+    <div class="price"><shop-currency value=[[item.price]]></shop-currency></div>
     <div class="pickers">
       <shop-select>
         <label id="sizeLabel" prefix>Size</label>

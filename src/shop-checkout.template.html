@@ -319,13 +319,13 @@
                 <template>
                   <div class="row order-summary-row">
                     <div class="flex">[[entry.item.title]]</div>
-                    <div>[[_getEntryTotal(entry)]]</div>
+                    <div><div><shop-currency value=[[_getEntryTotal(entry)]]></shop-currency></div>
                   </div>
                 </template>
               </dom-repeat>
               <div class="row total-row">
                 <div class="flex">Total</div>
-                <div>[[_formatPrice(total)]]</div>
+                <div><shop-currency value=[[total]]></shop-currency></div>
               </div>
               <shop-button responsive id="submitBox">
                 <input type="button" on-click="_submit" value="Place Order">

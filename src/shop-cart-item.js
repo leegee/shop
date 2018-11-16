@@ -1,11 +1,11 @@
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import './shop-icons.js';
 import './shop-image.js';
 import './shop-select.js';
 
-import { DAO } from './DAO';
+import './shop-currency.js';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-cart-item.template.html';
 
@@ -35,10 +35,6 @@ class ShopCartItem extends PolymerElement {
         size: this.entry.size
       }
     }));
-  }
-
-  _formatPrice(price) {
-    DAO._formatCurrency(price);
   }
 
   _removeItem() {

@@ -3,7 +3,7 @@ import './shop-button.js';
 import './shop-common-styles.js';
 import './shop-form-styles.js';
 
-import { DAO } from './DAO';
+import './shop-currency.js';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-cart.template.html';
 
@@ -32,10 +32,6 @@ class ShopCart extends PolymerElement {
         computed: '_computeHasItem(cart.length)'
       }
     }
-  }
-
-  _formatTotal(total) {
-    return DAO._formatCurrency(total);
   }
 
   _computeHasItem(cartLength) {

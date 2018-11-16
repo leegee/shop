@@ -19,6 +19,8 @@ import "./shop-tab.js";
 import "@polymer/paper-icon-button/paper-icon-button.js";
 import "@polymer/app-layout/app-drawer/app-drawer.js";
 
+import "./shop-currency.js";
+
 // shop-list
 // shop-detail
 import "./shop-network-warning.js";

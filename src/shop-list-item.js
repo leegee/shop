@@ -1,6 +1,6 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
-import { DAO } from './DAO';
+import './shop-currency.js';
 
 class ShopListItem extends PolymerElement {
   static get template() {
@@ -43,20 +43,16 @@ class ShopListItem extends PolymerElement {
 
     <shop-image src="[[item.image]]" alt="[[item.title]]"></shop-image>
     <div class="title">[[item.title]]</div>
-    <span class="price">[[_formatPrice(item.price)]]</span>
+    <span class="price"><shop-currency value=[[item.price]]></shop-currency></span>
 `;
   }
 
   static get is() { return 'shop-list-item'; }
 
-  static get properties() { return {
-
-    item: Object
-
-  }}
-
-  _formatPrice(price) {
-    return DAO._formatCurrency(price);
+  static get properties() {
+    return {
+      item: Object
+    }
   }
 }
 
