@@ -1,4 +1,11 @@
-# SHOP
+# Fork of 'Shop'
+
+* Added webpack
+* Splits larger templates into their own files
+* Added currency object with conversion via free API prior to PayPal (that will do the actual conversion). 
+* Switched to anchor-based routes for easier dev
+
+## SHOP
 
 Shop is a sample e-commerce [Progressive Web App](https://developers.google.com/web/progressive-web-apps/).
 
