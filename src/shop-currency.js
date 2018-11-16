@@ -10,10 +10,10 @@ export class ShopCurrency extends PolymerElement {
 
     static get properties() {
         return {
-            symbol: {
+            char: {
                 type: String,
                 // Set the initial value of the symbol to that used in the data source and ignored in the conversion, as is a factor of 1
-                value: 'HUF',
+                value: Config.defaultSymbol.char,
                 observer: 'symbolChanged'
             },
             value: {
@@ -27,9 +27,9 @@ export class ShopCurrency extends PolymerElement {
         }
     }
 
-    static setDefaultRates = () => {
+    static setDefaultRates() {
         const rv = {};
-        Object.keys(ShopCurrency.symbols).forEach(symbol => rv[symbol] = 0);
+        Object.keys(ShopCurrency.symbols).forEach(char => rv[char] = 0);
         rv[Config.defaultSymbol.char] = 1;
         return rv;
     };
@@ -37,14 +37,14 @@ export class ShopCurrency extends PolymerElement {
     static getRates() {
         const url = 'http://free.currencyconverterapi.com/api/v5/convert?compact=y&q=';
         const promises = [];
-        Object.keys(ShopCurrency.symbols).filter(symbol => symbol !== Config.defaultSymbol.char).forEach(symbol => {
-            const key = ShopCurrency.symbols[symbol] + '_' + Config.defaultSymbol.symbol; 
+        Object.keys(ShopCurrency.symbols).filter(char => char !== Config.defaultSymbol.char).forEach(char => {
+            const key = ShopCurrency.symbols[char] + '_' + Config.defaultSymbol.symbol; 
             const promise = fetch(url + key)
                 .then(res => {
                     return res.json();
                 })
                 .then(json => {
-                    ShopCurrency.rates[symbol] = json[key].val;
+                    ShopCurrency.rates[char] = json[key].val;
                 });
             promises.push(promise);
         });
@@ -57,7 +57,7 @@ export class ShopCurrency extends PolymerElement {
 
     connectedCallback() {
         document.addEventListener('currency-changed', (e) => {
-            this.symbol = e.detail.symbol;
+            this.char = e.detail.char;
         })
     }
 
@@ -66,16 +66,16 @@ export class ShopCurrency extends PolymerElement {
     }
 
     symbolChanged(symbol) {
-        if (Object.keys(ShopCurrency.symbols).indexOf(this.symbol) == -1) {
-            throw new TypeError('No such currency symbol as "' + this.symbol + '"');
+        if (Object.keys(ShopCurrency.symbols).indexOf(this.char) == -1) {
+            throw new TypeError('No such currency symbol as "' + this.char + '"');
         }
         this._format();
     }
 
     _format() {
-        this.formatted = isNaN(this.value) ? '-' : (this.value * ShopCurrency.rates[this.symbol]).toLocaleString(undefined, {
+        this.formatted = isNaN(this.value) ? '-' : (this.value * ShopCurrency.rates[this.char]).toLocaleString(undefined, {
             style: 'currency',
-            currency: ShopCurrency.symbols[this.symbol],
+            currency: ShopCurrency.symbols[this.char],
             currencyDisplay: 'symbol'
         });
     }

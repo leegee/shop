@@ -232,7 +232,7 @@
         <div class="logo" main-title=""><a href="#" aria-label="SHOP Home">SHOP</a></div>
         <div class="cart-btn-container">
             <shop-select>
-                <select id="currencySelect" selected={{currency}} required on-change="currencySelectChanged">
+                <select id="currencySelect" selected={{Config.defaultSymbol.char}} required on-change="currencySelectChanged">
                     <option value='€'>€</option>
                     <option value="HUF">HUF</option>
                     <option value='£'>£</option>
@@ -288,7 +288,7 @@
     <!-- detail view of one item -->
     <shop-detail name="detail" route="[[subroute]]" offline="[[offline]]"></shop-detail>
     <!-- cart view -->
-    <shop-cart name="cart" cart="[[cart]]" total="[[total]]" symbol='€'></shop-cart>
+    <shop-cart name="cart" cart="[[cart]]" total="[[total]]"></shop-cart>
     <!-- checkout view -->
     <shop-checkout name="checkout" cart="[[cart]]" total="[[total]]" route="{{subroute}}"></shop-checkout>
 

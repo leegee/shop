@@ -19,6 +19,7 @@ import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import './shop-currency.js';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-app.template.html';
+import { Config } from './Config';
 
 // performance logging
 window.performance && performance.mark && performance.mark('shop-app - before register');
@@ -288,15 +289,15 @@ class ShopApp extends PolymerElement {
   }
 
   currencySelectChanged() {
-    this.$.currency.setAttribute('symbol', this.$.currencySelect.value);
+    this.$.currency.setAttribute('char', this.$.currencySelect.value);
     document.dispatchEvent( new CustomEvent('currency-changed', {
       bubbles: true,
       composed: true,
       detail: {
-        symbol: this.$.currencySelect.value
+        char: this.$.currencySelect.value
       }
     }))
-    console.log('_currencySelectChange local symbol = ', this.$.currency.symbol);
+    console.log('_currencySelectChange local char = ', this.$.currency.char);
   }
 
 }

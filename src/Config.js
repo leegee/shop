@@ -11,8 +11,8 @@ export class Config {
 
     static get defaultSymbol() {
         return {
-            symbol: 'HUF',
-            char: 'HUF'
+            symbol: '€',
+            char: '€'
         }
     }
 
