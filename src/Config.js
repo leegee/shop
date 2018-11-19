@@ -15,10 +15,10 @@ export class Config {
             spreadsheetId: '12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs',
             range: 'Sheet1',
             apiKey: 'AIzaSyD2mfHeSMho_JqZYvBbNvkdqr3gumGQsWk',
-            url: 'https://sheets.googleapis.com/v4/spreadsheets/'
-                + Config.googleSheetsApi.spreadsheetId + '/values/'
-                + Config.googleSheetsApi.range
-                + '?key=' + Config.googleSheetsApi.apiKey,
+            // url: 'https://sheets.googleapis.com/v4/spreadsheets/'
+            //     + Config.googleSheetsApi.spreadsheetId + '/values/'
+            //     + Config.googleSheetsApi.range
+            //     + '?key=' + Config.googleSheetsApi.apiKey,
         }
     }
 
@@ -42,7 +42,7 @@ export class Config {
         return [
             {
                 name: 'mens_outerwear',
-                sheetname: 'mens_outerwear',
+                sheetName: 'mens_outerwear',
                 url: 'data/mens_outerwear.json',
                 title: 'Men\'s Outerwear',
                 image: 'images/mens_outerwear.jpg',
@@ -50,7 +50,7 @@ export class Config {
             },
             {
                 name: 'ladies_outerwear',
-                sheetname: 'mens_outerwear',
+                sheetName: 'mens_outerwear',
                 url: 'data/ladies_outerwear.json',
                 title: 'Ladies\' Outerwear',
                 image: 'images/ladies_outerwear.jpg',
@@ -58,7 +58,7 @@ export class Config {
             },
             {
                 name: 'mens_tshirts',
-                sheetname: 'mens_outerwear',
+                sheetName: 'mens_outerwear',
                 url: 'data/mens_tshirts.json',
                 title: 'Men\'s T-Shirts',
                 image: 'images/mens_tshirts.jpg',
@@ -66,7 +66,7 @@ export class Config {
             },
             {
                 name: 'ladies_tshirts',
-                sheetname: 'mens_outerwear',
+                sheetName: 'mens_outerwear',
                 url: 'data/ladies_tshirts.json',
                 title: 'Ladies\' T-Shirts',
                 image: 'images/ladies_tshirts.jpg',

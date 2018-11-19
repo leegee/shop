@@ -75,7 +75,7 @@ class ShopCategoryData extends PolymerElement {
   }
 
   _reformatJson(json) {
-    return json;
+    return json.values.splice(1).filter( row => row.length );
   }
 
   _fetchItems(category, attempts) {
@@ -85,7 +85,8 @@ class ShopCategoryData extends PolymerElement {
       return;
     }
     this._getResource({
-      url: category.url,
+      // url: category.url,
+      category: category,
       onLoad(json) {
         this.set('category.items', json);
       },
@@ -96,7 +97,11 @@ class ShopCategoryData extends PolymerElement {
   }
 
   _getResource(req, attempts) {
-    const url = Config.getGoogleSheetsUrl(req.sheetName)
+    if (!req.category || ! req.category.sheetName){
+      console.error(req);
+      throw new TypeError('Expected a category with sheetName in parameter 1');
+    }
+    const url = Config.getGoogleSheetsUrl(req.category.sheetName)
     fetch(url)
       .then(res => {
         return res.json();
