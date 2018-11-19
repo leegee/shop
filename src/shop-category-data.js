@@ -95,9 +95,30 @@ class ShopCategoryData extends PolymerElement {
     }, attempts);
   }
 
-  // https://docs.google.com/spreadsheets/d/12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs/edit#gid=0
-  // https://spreadsheets.google.com/feeds/list/12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs/od6/public/values?alt=json
   _getResource(req, attempts) {
+    const url = Config.getGoogleSheetsUrl(req.sheetName)
+    fetch(url)
+      .then(res => {
+        return res.json();
+      })
+      .then(json => {
+        return this._reformatJson(json);
+      })
+      .then(json => {
+        req.onLoad.bind(this)(json);
+      })
+      .catch(e => {
+        // Flaky connections might fail fetching resources
+        if (attempts > 1) {
+          this._getResourceDebouncer = Debouncer.debounce(this._getResourceDebouncer,
+            timeOut.after(200), this._getResource.bind(this, req, attempts - 1));
+        } else {
+          req.onError.call(this, e);
+        }
+      })
+  }
+
+  _getResourceOffline(req, attempts) {
     fetch(req.url)
       .then(res => {
         return res.json();

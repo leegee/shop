@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -80,5 +81,15 @@ module.exports = {
     ]),
     new webpack.IgnorePlugin(/vertx/),
     new webpack.HotModuleReplacementPlugin(),
+    // new SWPrecacheWebpackPlugin(
+    //   {
+    //     cacheId: 'my-project-name',
+    //     dontCacheBustUrlsMatching: /\.\w{8}\./,
+    //     filename: 'service-worker.js',
+    //     minify: true,
+    //     navigateFallback: PUBLIC_PATH + 'index.html',
+    //     staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+    //   }
+    // ),
   ]
 };
