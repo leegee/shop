@@ -1,5 +1,9 @@
-export class Config {
+if (!process.env.apikey) {
+    console.error(process.env);
+    throw new TypeError('Environment variable apikey not set! Set to a Google key for Google Sheets API');
+}
 
+export class Config {
     // https://docs.google.com/spreadsheets/d/12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs/edit#gid=0
     // https://sheets.googleapis.com/v4/spreadsheets/SPREADSHEET_ID/values/RANGE?key=apiKey
     // https://sheets.googleapis.com/v4/spreadsheets/12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs/values/mens_outerwear?key=AIzaSyD2mfHeSMho_JqZYvBbNvkdqr3gumGQsWk

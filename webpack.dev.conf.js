@@ -4,12 +4,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 const webpack = require('webpack');
 
 const PUBLIC_PATH = 'http://localhost:8080/';
 
 module.exports = {
   mode: 'development',
+  node: {
+    process: true,
+    fs: 'empty'
+  },
   entry: {
     app: [
       'webpack-dev-server/client?http://localhost:8080',
@@ -48,6 +53,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new Dotenv(),
     new CleanWebpackPlugin(['dist'], {
       verbose: true,
       root: path.resolve(__dirname)

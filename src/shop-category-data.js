@@ -103,9 +103,10 @@ class ShopCategoryData extends PolymerElement {
       console.error(req);
       throw new TypeError('Expected a category with sheetName in parameter 1');
     }
-    const url = Config.getGoogleSheetsUrl(req.category.sheetName)
+    const url = Config.getGoogleSheetsUrl(req.category.sheetName);
     fetch(url)
       .then(res => {
+        console.log('got ', url);
         return res.json();
       })
       .then(json => {
@@ -116,6 +117,7 @@ class ShopCategoryData extends PolymerElement {
       })
       .catch(e => {
         // Flaky connections might fail fetching resources
+        console.warn(e);
         if (attempts > 1) {
           this._getResourceDebouncer = Debouncer.debounce(this._getResourceDebouncer,
             timeOut.after(200), this._getResource.bind(this, req, attempts - 1));
