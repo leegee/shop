@@ -1,6 +1,6 @@
-if (!process.env.apikey) {
+if (!process.env.googlesheetsapikey) {
     console.error(process.env);
-    throw new TypeError('Environment variable apikey not set! Set to a Google key for Google Sheets API');
+    throw new TypeError('Environment variable googlesheetsapikey not set! Set to a Google key for Google Sheets API');
 }
 
 export class Config {
@@ -12,14 +12,14 @@ export class Config {
         return 'https://sheets.googleapis.com/v4/spreadsheets/'
             + Config.googleSheetsApi.spreadsheetId + '/values/'
             + sheetName
-            + '?key=' + Config.googleSheetsApi.apiKey;
+            + '?key=' + Config.googleSheetsApi.googlesheetsapikey;
     }
 
     static get googleSheetsApi() {
         return {
             spreadsheetId: '12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs',
             range: 'Sheet1',
-            apiKey: process.env.apikey
+            googlesheetsapikey: process.env.googlesheetsapikey
         }
     }
 

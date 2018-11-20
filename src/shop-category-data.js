@@ -13,36 +13,29 @@ class ShopCategoryData extends PolymerElement {
 
   static get properties() {
     return {
-
       categoryName: String,
-
       itemName: String,
-
       categories: {
         type: Array,
         value: Config.categoryList,
         readOnly: true,
         notify: true
       },
-
       category: {
         type: Object,
         computed: '_computeCategory(categoryName)',
         notify: true
       },
-
       item: {
         type: Object,
         computed: '_computeItem(category.items, itemName)',
         notify: true
       },
-
       failure: {
         type: Boolean,
         notify: true,
         readOnly: true
       }
-
     }
   }
 
@@ -130,29 +123,7 @@ class ShopCategoryData extends PolymerElement {
         console.warn(e);
         if (attempts > 1) {
           this._getResourceDebouncer = Debouncer.debounce(this._getResourceDebouncer,
-            timeOut.after(200), this._getResource.bind(this, req, attempts - 1));
-        } else {
-          req.onError.call(this, e);
-        }
-      })
-  }
-
-  _getResourceOffline(req, attempts) {
-    fetch(req.url)
-      .then(res => {
-        return res.json();
-      })
-      .then(json => {
-        return this._reformatJson(json);
-      })
-      .then(json => {
-        req.onLoad.bind(this)(json);
-      })
-      .catch(e => {
-        // Flaky connections might fail fetching resources
-        if (attempts > 1) {
-          this._getResourceDebouncer = Debouncer.debounce(this._getResourceDebouncer,
-            timeOut.after(200), this._getResource.bind(this, req, attempts - 1));
+            timeOut.after(500), this._getResource.bind(this, req, attempts - 1));
         } else {
           req.onError.call(this, e);
         }
