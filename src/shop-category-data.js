@@ -75,9 +75,19 @@ class ShopCategoryData extends PolymerElement {
   }
 
   _reformatJson(googleSheetsJson) {
-    return googleSheetsJson.values
-    .splice(1) // Ignore header row
-    .filter( row => row.length ); // Ignore blank rows
+    const headers = googleSheetsJson.values[0];
+    const rv = [];
+    googleSheetsJson.values
+      .splice(1) // Ignore header row
+      .filter(row => row.length) // Ignore blank rows
+      .forEach(shopItems => { // Convert array to object based on 'headers'
+        const item = shopItems.reduce((result, value, index) => {
+          result[headers[index]] = value;
+          return result;
+        }, {});
+        rv.push(item);
+      });
+    return rv;
   }
 
   _fetchItems(category, attempts) {
@@ -99,7 +109,7 @@ class ShopCategoryData extends PolymerElement {
   }
 
   _getResource(req, attempts) {
-    if (!req.category || ! req.category.sheetName){
+    if (!req.category || !req.category.sheetName) {
       console.error(req);
       throw new TypeError('Expected a category with sheetName in parameter 1');
     }
@@ -160,7 +170,7 @@ class ShopCategoryData extends PolymerElement {
     const rv = [];
     gsx.feed.entry.forEach(entry => {
       const reformed = {};
-      Object.keys(entry).forEach( key => {
+      Object.keys(entry).forEach(key => {
         let m;
         if (m = key.match(this.matchKeys)) {
           reformed[m[1]] = entry['$t'];
