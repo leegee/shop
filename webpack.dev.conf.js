@@ -3,8 +3,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const webpack = require('webpack');
+
+const PUBLIC_PATH = 'http://localhost:8080/';
 
 module.exports = {
   mode: 'development',
@@ -81,15 +83,15 @@ module.exports = {
     ]),
     new webpack.IgnorePlugin(/vertx/),
     new webpack.HotModuleReplacementPlugin(),
-    // new SWPrecacheWebpackPlugin(
-    //   {
-    //     cacheId: 'my-project-name',
-    //     dontCacheBustUrlsMatching: /\.\w{8}\./,
-    //     filename: 'service-worker.js',
-    //     minify: true,
-    //     navigateFallback: PUBLIC_PATH + 'index.html',
-    //     staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
-    //   }
-    // ),
+    new SWPrecacheWebpackPlugin(
+      {
+        cacheId: 'judit-shop',
+        dontCacheBustUrlsMatching: /\.\w{8}\./,
+        filename: 'service-worker.js',
+        minify: true,
+        navigateFallback: PUBLIC_PATH + 'index.html',
+        staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+      }
+    ),
   ]
 };

@@ -74,8 +74,10 @@ class ShopCategoryData extends PolymerElement {
     }
   }
 
-  _reformatJson(json) {
-    return json.values.splice(1).filter( row => row.length );
+  _reformatJson(googleSheetsJson) {
+    return googleSheetsJson.values
+    .splice(1) // Ignore header row
+    .filter( row => row.length ); // Ignore blank rows
   }
 
   _fetchItems(category, attempts) {

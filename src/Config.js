@@ -3,6 +3,7 @@ export class Config {
     // https://docs.google.com/spreadsheets/d/12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs/edit#gid=0
     // https://sheets.googleapis.com/v4/spreadsheets/SPREADSHEET_ID/values/RANGE?key=apiKey
     // https://sheets.googleapis.com/v4/spreadsheets/12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs/values/mens_outerwear?key=AIzaSyD2mfHeSMho_JqZYvBbNvkdqr3gumGQsWk
+    // https://developers.google.com/sheets/api/guides/concepts    
     static getGoogleSheetsUrl(sheetName) {
         return 'https://sheets.googleapis.com/v4/spreadsheets/'
             + Config.googleSheetsApi.spreadsheetId + '/values/'
@@ -14,11 +15,7 @@ export class Config {
         return {
             spreadsheetId: '12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs',
             range: 'Sheet1',
-            apiKey: 'AIzaSyD2mfHeSMho_JqZYvBbNvkdqr3gumGQsWk',
-            // url: 'https://sheets.googleapis.com/v4/spreadsheets/'
-            //     + Config.googleSheetsApi.spreadsheetId + '/values/'
-            //     + Config.googleSheetsApi.range
-            //     + '?key=' + Config.googleSheetsApi.apiKey,
+            apiKey: 'AIzaSyD2mfHeSMho_JqZYvBbNvkdqr3gumGQsWk'
         }
     }
 
