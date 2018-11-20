@@ -15,7 +15,7 @@ export class Config {
         return {
             spreadsheetId: '12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs',
             range: 'Sheet1',
-            apiKey: 'AIzaSyD2mfHeSMho_JqZYvBbNvkdqr3gumGQsWk'
+            apiKey: process.env.apikey
         }
     }
 
