@@ -100,9 +100,9 @@
           <div class="subsection" visible$="[[!_hasItems]]">
             <p class="empty-cart">Your <iron-icon icon="shopping-cart"></iron-icon> is empty.</p>
             <p class="empty-cart">
-                <shop-button>
-                    <a aria-label\$="Shop Now" href\$="#/">Continue Shopping</a>
-                </shop-button>
+              <shop-button>
+                <a aria-label="Continue Shopping" href="#/">Continue Shopping</a>
+              </shop-button>
             </p>
           </div>
 
@@ -324,13 +324,18 @@
                 <template>
                   <div class="row order-summary-row">
                     <div class="flex">[[entry.item.title]]</div>
-                    <div><div><shop-currency value=[[_getEntryTotal(entry)]]></shop-currency></div>
-                  </div>
+                    <div>
+                      <div>
+                        <shop-currency value=[[_getEntryTotal(entry)]]></shop-currency>
+                      </div>
+                    </div>
                 </template>
               </dom-repeat>
               <div class="row total-row">
                 <div class="flex">Total</div>
-                <div><shop-currency value=[[total]]></shop-currency></div>
+                <div>
+                  <shop-currency value=[[total]]></shop-currency>
+                </div>
               </div>
               <shop-button responsive id="submitBox">
                 <input type="button" on-click="_submit" value="Place Order">
