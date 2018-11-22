@@ -3,11 +3,12 @@ import './shop-button.js';
 import './shop-common-styles.js';
 import './shop-form-styles.js';
 
+import { I18n } from './shop-i18n';
 import './shop-currency.js';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-cart.template.html';
 
-class ShopCart extends PolymerElement {
+class ShopCart extends I18n(PolymerElement) {
 
   static get template() {
     return getTemplate(view);

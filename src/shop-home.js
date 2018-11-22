@@ -1,8 +1,9 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import './shop-button.js';
 import './shop-image.js';
+import { I18n } from './shop-i18n';
 
-class ShopHome extends PolymerElement {
+class ShopHome extends I18n(PolymerElement) {
   static get template() {
     return html`
     <style include="shop-button">

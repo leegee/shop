@@ -5,11 +5,12 @@ import { IronOverlayBehaviorImpl } from '@polymer/iron-overlay-behavior/iron-ove
 import './shop-button.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 
+import { I18n } from './shop-i18n';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-cart-model.template.html';
 
 class ShopCartModal extends mixinBehaviors(
-  [IronOverlayBehaviorImpl], PolymerElement) {
+  [IronOverlayBehaviorImpl, I18n], PolymerElement) {
 
   static get template() {
     return getTemplate(view);

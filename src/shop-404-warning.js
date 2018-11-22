@@ -2,8 +2,9 @@ import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-icon/iron-icon.js';
 import './shop-button.js';
 import './shop-icons.js';
+import { I18n } from './shop-i18n';
 
-class Shop404Warning extends PolymerElement {
+class Shop404Warning extends I18n(PolymerElement) {
   static get template() {
     return html`
     <style include="shop-button">

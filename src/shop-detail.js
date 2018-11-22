@@ -9,11 +9,12 @@ import './shop-select.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { microTask } from '@polymer/polymer/lib/utils/async.js';
 
+import { I18n } from './shop-i18n';
 import './shop-currency.js';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-detail.template.html'; 
 
-class ShopDetail extends PolymerElement {
+class ShopDetail extends I18n(PolymerElement) {
   static get template() {
     return getTemplate(view);
   }

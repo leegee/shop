@@ -2,8 +2,9 @@ import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 import { Config } from './Config';
+import { I18n } from './shop-i18n';
 
-class ShopCategoryData extends PolymerElement {
+class ShopCategoryData extends I18n(PolymerElement) {
 
   static get is() { return 'shop-category-data'; }
 
@@ -109,7 +110,7 @@ class ShopCategoryData extends PolymerElement {
     const url = Config.getGoogleSheetsUrl(req.category.sheetName);
     fetch(url)
       .then(res => {
-        console.log('got ', url);
+        console.log('Fetched ', url);
         return res.json();
       })
       .then(json => {

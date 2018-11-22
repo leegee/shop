@@ -5,11 +5,12 @@ import './shop-icons.js';
 import './shop-image.js';
 import './shop-select.js';
 
+import { I18n } from './shop-i18n';
 import './shop-currency.js';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-cart-item.template.html';
 
-class ShopCartItem extends PolymerElement {
+class ShopCartItem extends I18n(PolymerElement) {
 
   static get template() {
     return getTemplate(view);
