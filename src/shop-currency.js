@@ -33,12 +33,12 @@ export class ShopCurrency extends PolymerElement {
         rv[Config.defaultSymbol.char] = 1;
         return rv;
     };
-    
+
     static getRates() {
         const url = 'http://free.currencyconverterapi.com/api/v5/convert?compact=y&q=';
         const promises = [];
         Object.keys(ShopCurrency.symbols).filter(char => char !== Config.defaultSymbol.char).forEach(char => {
-            const key = ShopCurrency.symbols[char] + '_' + Config.defaultSymbol.symbol; 
+            const key = ShopCurrency.symbols[char] + '_' + Config.defaultSymbol.symbol;
             const promise = fetch(url + key)
                 .then(res => {
                     return res.json();
@@ -85,6 +85,9 @@ ShopCurrency.ready = false;
 ShopCurrency.gotCurrencies = false;
 ShopCurrency.instance = null;
 ShopCurrency.symbols = Config.chars2symbols;
+
+ShopCurrency.symbolsForUser = Object.keys(ShopCurrency.symbols);
+
 // Factors by which to multiply the values in the data source
 ShopCurrency.rates = ShopCurrency.setDefaultRates();
 

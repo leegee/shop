@@ -17,7 +17,7 @@ import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 
 import { I18n } from './shop-i18n';
-import './shop-currency.js';
+import { ShopCurrency } from './shop-currency.js';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-app.template.html';
 import { Config } from './Config';
@@ -55,6 +55,18 @@ class ShopApp extends I18n(PolymerElement) {
 
       _shouldRenderDrawer: {
         computed: '_computeShouldRenderDrawer(smallScreen, loadComplete)'
+      },
+
+      currencySymbolsForUser: {
+        value() {
+          return ShopCurrency.symbolsForUser;
+        }
+      },
+
+      languages: {
+        value() {
+          return this.languages;
+        }
       }
     }
   }
@@ -72,6 +84,7 @@ class ShopApp extends I18n(PolymerElement) {
 
   ready() {
     super.ready();
+
     // Custom elements polyfill safe way to indicate an element has been upgraded.
     this.removeAttribute('unresolved');
     // listen for custom events
@@ -86,6 +99,8 @@ class ShopApp extends I18n(PolymerElement) {
     afterNextRender(this, () => {
       window.addEventListener('online', (e) => this._notifyNetworkStatus(e));
       window.addEventListener('offline', (e) => this._notifyNetworkStatus(e));
+      this.$.currencySelect.value = Config.defaultSymbol.char;
+      this.$.languageSelect.value = this.currentLanguageKey;
     });
   }
 
@@ -299,8 +314,13 @@ class ShopApp extends I18n(PolymerElement) {
       detail: {
         char: this.$.currencySelect.value
       }
-    }))
-    console.log('_currencySelectChange local char = ', this.$.currency.char);
+    }));
+    console.log('currencySelectChange local char = ', this.$.currency.char);
+  }
+
+  languageSelectChanged() {
+    this.changeLanguage(this.$.languageSelect.value);
+    console.log('languageSelectChange to [%s]', this.$.languageSelect.value);
   }
 
 }

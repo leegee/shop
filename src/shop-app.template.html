@@ -232,13 +232,21 @@
         <div class="logo" main-title=""><a href="#/" aria-label="[[t('shop-home')]]">[[t('shop')]]</a></div>
         <div class="cart-btn-container">
             <shop-select>
-                <select id="currencySelect" required selected={{Config.defaultSymbol.char}} on-change="currencySelectChanged">
-                    <option value='€'>€</option>
-                    <option value="HUF">HUF</option>
-                    <option value='£'>£</option>
-                    <option value="$">$</option>
+                <select id="currencySelect" required on-change="currencySelectChanged">
+                    <template is="dom-repeat" items="[[currencySymbolsForUser]]" as="symbol">
+                        <option value="[[symbol]]">{{symbol}}</option>
+                    </template>
                 </select>
             </shop-select>
+
+            <shop-select>
+                <select id="languageSelect" required selected={{I18n.currentLanguage}} on-change="languageSelectChanged">
+                    <template is="dom-repeat" items="[[languages]]" as="language">
+                        <option value="[[language.value]]">{{language.name}}</option>
+                    </template>
+                </select>
+            </shop-select>
+
             <a href="#/cart" tabindex="-1">
                 <paper-icon-button icon="shopping-cart" aria-label$="[[t('shopping cart')]]: [[_computePluralizedQuantity(numItems)]]"></paper-icon-button>
             </a>

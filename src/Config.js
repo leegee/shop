@@ -39,6 +39,10 @@ export class Config {
         }
     }
 
+    static get defaultlanguage() {
+        return 'en';
+    }
+
     static get categoryList() {
         return [
             {
