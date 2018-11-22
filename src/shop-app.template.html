@@ -229,10 +229,10 @@
                 <paper-icon-button icon="arrow-back" aria-label="Go back"></paper-icon-button>
             </a>
         </div>
-        <div class="logo" main-title=""><a href="#" aria-label="SHOP Home">SHOP</a></div>
+        <div class="logo" main-title=""><a href="#/" aria-label="[[t('shop-home')]]">[[t('shop')]]</a></div>
         <div class="cart-btn-container">
             <shop-select>
-                <select id="currencySelect" selected={{Config.defaultSymbol.char}} required on-change="currencySelectChanged">
+                <select id="currencySelect" required selected={{Config.defaultSymbol.char}} on-change="currencySelectChanged">
                     <option value='€'>€</option>
                     <option value="HUF">HUF</option>
                     <option value='£'>£</option>
@@ -240,7 +240,7 @@
                 </select>
             </shop-select>
             <a href="#/cart" tabindex="-1">
-                <paper-icon-button icon="shopping-cart" aria-label$="Shopping cart: [[_computePluralizedQuantity(numItems)]]"></paper-icon-button>
+                <paper-icon-button icon="shopping-cart" aria-label$="[[t('shopping cart')]]: [[_computePluralizedQuantity(numItems)]]"></paper-icon-button>
             </a>
             <div class="cart-badge" aria-hidden="true" hidden$="[[!numItems]]">[[numItems]]</div>
         </div>

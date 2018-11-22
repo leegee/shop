@@ -16,6 +16,7 @@ import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 
+import { I18n } from './shop-i18n';
 import './shop-currency.js';
 import { getTemplate } from './getTemplate';
 import * as view from './shop-app.template.html';
@@ -24,7 +25,7 @@ import { Config } from './Config';
 // performance logging
 window.performance && performance.mark && performance.mark('shop-app - before register');
 
-class ShopApp extends PolymerElement {
+class ShopApp extends I18n(PolymerElement) {
   static get template() {
     return getTemplate(view);
   }
@@ -203,8 +204,8 @@ class ShopApp extends PolymerElement {
 
     // Announce the page's title
     if (detail.title) {
-      document.title = detail.title + ' - SHOP';
-      this._announce(detail.title + ', loaded');
+      document.title = detail.title + ' - ' + this.t('shop');
+      this._announce(detail.title);
       // Set open graph metadata
       this._setMeta('property', 'og:title', detail.title);
       this._setMeta('property', 'og:description', detail.description || document.title);
@@ -225,7 +226,7 @@ class ShopApp extends PolymerElement {
     }
     this.$.cart.addItem(event.detail);
     this._cartModal.open();
-    this._announce('Item added to the cart');
+    this._announce(this.t('Item added to the cart'));
   }
 
   _onSetCartItem(event) {
@@ -234,13 +235,13 @@ class ShopApp extends PolymerElement {
     if (detail.quantity === 0) {
       this._announce('Item deleted');
     } else {
-      this._announce('Quantity changed to ' + detail.quantity);
+      this._announce(this.t('Quantity changed to') + ' ' + detail.quantity);
     }
   }
 
   _onClearCart() {
     this.$.cart.clearCart();
-    this._announce('Cart cleared');
+    this._announce(this.t('Cart cleared'));
   }
 
   // Elements in the app can notify a change to be a11y announced.
@@ -286,12 +287,13 @@ class ShopApp extends PolymerElement {
   }
 
   _computePluralizedQuantity(quantity) {
-    return quantity + ' ' + (quantity === 1 ? 'item' : 'items');
+    // TODO: config i18n pluralisation
+    return quantity + ' ' + (quantity === 1 ? this.t('item') : this.t('items'));
   }
 
   currencySelectChanged() {
     this.$.currency.setAttribute('char', this.$.currencySelect.value);
-    document.dispatchEvent( new CustomEvent('currency-changed', {
+    document.dispatchEvent(new CustomEvent('currency-changed', {
       bubbles: true,
       composed: true,
       detail: {
