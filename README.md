@@ -7,6 +7,7 @@ New features:
 * Added currency object with conversion via free API prior to PayPal (that will do the actual conversion). 
 * Switched to anchor-based routes for easier dev
 * Data source switched to Google Sheets
+* Translation via i18next
 
 ## Environment
 
