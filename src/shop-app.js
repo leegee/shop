@@ -113,7 +113,8 @@ class ShopApp extends PolymerElement {
           import('./shop-cart.js').then(cb);
           break;
         case 'checkout':
-          import('./shop-checkout.js').then(cb);
+          // import('./shop-checkout.js').then(cb);
+          import('./shop-checkout-paypal.js').then(cb);
           break;
         default:
           this._pageLoaded(Boolean(oldPage));
