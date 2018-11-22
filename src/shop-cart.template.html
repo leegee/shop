@@ -22,7 +22,14 @@
 
 <div class="main-frame">
     <div class="subsection" visible$="[[!_hasItems]]">
-        <p class="empty-cart">Your <iron-icon icon="shopping-cart"></iron-icon> is empty.</p>
+        <p class="empty-cart">
+            Your <iron-icon icon="shopping-cart"></iron-icon> is empty.
+        </p>
+        <p class="empty-cart">
+            <shop-button>
+                <a aria-label\$="Shop Now" href\$="#/">Continue Shopping</a>
+            </shop-button>
+        </p>
     </div>
     <div class="subsection" visible$="[[_hasItems]]">
         <header>
@@ -37,7 +44,9 @@
             </dom-repeat>
         </div>
         <div class="checkout-box">
-            Total: <span class="subtotal"><shop-currency value="[[total]]"></shop-currency></span>
+            Total: <span class="subtotal">
+                <shop-currency value="[[total]]"></shop-currency>
+            </span>
             <shop-button responsive>
                 <a href="#/checkout">Checkout</a>
             </shop-button>

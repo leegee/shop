@@ -99,7 +99,7 @@ class ShopCheckout extends PolymerElement {
     }
 
     _submit(e) {
-        console.log('enter _submit');
+        console.log('Enter _submit');
         // https://developer.paypal.com/docs/classic/paypal-payments-standard/integration-guide/formbasics/#form-attributes--action-and-method
         if (this._validateForm()) {
             console.log('_validateForm');
@@ -215,6 +215,7 @@ class ShopCheckout extends PolymerElement {
      * and updates the UI to reflect the waiting state.
      */
     _willSendRequest(e) {
+        console.log('Enter _willSendRequest');
         let form = e.target;
         let body = form.request && form.request.body;
 

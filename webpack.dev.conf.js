@@ -62,10 +62,6 @@ module.exports = {
       template: './index.html'
     }),
     new CopyWebpackPlugin([
-      // {
-      //   from: path.resolve(__dirname, './static'),
-      //   to: 'static'
-      // },
       {
         from: path.resolve(__dirname, './manifest.json'),
         to: '.'
