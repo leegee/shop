@@ -2,12 +2,19 @@
 
 New features:
 
-* Added webpack
+* Adds webpack, retains Polymer CLI
 * Splits larger templates into their own files
-* Added currency object with conversion via free API prior to PayPal (that will do the actual conversion). 
-* Switched to anchor-based routes for easier dev
+* Adds Translation via i18next
+* Adds currency conversion via free API, prior to PayPal (which  will do the actual conversion).
+* Anchor-based routes
 * Data source switched to Google Sheets
-* Translation via i18next
+* Added Configuration object
+
+## To Do
+
+Outstanding features:
+
+* PayPal checkout (in progress: 50%)
 
 ## Environment
 
