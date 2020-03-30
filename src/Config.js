@@ -110,4 +110,12 @@ export class Config {
             + sheetName
             + '?key=' + Config.googleSheetsApi.googlesheetsapikey;
     };
+
+    static get googleAnalyticsKey() {
+        return undefined;
+    }
+
+    static get payPalCientId() {
+        return process.env.ppclientid;
+    }
 }
