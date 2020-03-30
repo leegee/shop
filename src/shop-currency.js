@@ -35,11 +35,12 @@ export class ShopCurrency extends PolymerElement {
     };
 
     static getRates() {
-        const url = 'http://free.currencyconverterapi.com/api/v5/convert?compact=y&q=';
         const promises = [];
         Object.keys(ShopCurrency.symbols).filter(char => char !== Config.defaultSymbol.char).forEach(char => {
             const key = ShopCurrency.symbols[char] + '_' + Config.defaultSymbol.symbol;
-            const promise = fetch(url + key)
+            const promise = fetch(Config.currencyConvertorURL + key, {
+                mode: 'no-cors',
+            })
                 .then(res => {
                     return res.json();
                 })

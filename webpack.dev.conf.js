@@ -36,10 +36,6 @@ module.exports = {
         test: /\.html$/,
         use: 'html-loader'
       },
-      // {
-      //   test: /\.txt$/,
-      //   use: 'raw-loader'
-      // },
       {
         test: /\.ts?$/,
         use: 'ts-loader',
@@ -49,7 +45,7 @@ module.exports = {
   },
   resolve: {
     extensions: [
-      '.ts', '.js', '.html' // , '.txt'
+      '.ts', '.js', '.html'
     ]
   },
   plugins: [
@@ -87,7 +83,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new SWPrecacheWebpackPlugin(
       {
-        cacheId: 'judit-shop',
+        cacheId: 'polymer-shop-2.0',
         dontCacheBustUrlsMatching: /\.\w{8}\./,
         filename: 'service-worker.js',
         minify: true,

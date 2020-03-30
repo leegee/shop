@@ -1,20 +1,14 @@
 if (!process.env.googlesheetsapikey) {
     console.error(process.env);
-    throw new TypeError('Environment variable googlesheetsapikey not set! Set to a Google key for Google Sheets API');
+    throw new TypeError('Environment variable googlesheetsapikey not set! Set to a key for Google Sheets API');
+}
+
+if (!process.env.currencyconverterapikey) {
+    console.error(process.env);
+    throw new TypeError('Environment variable currencyconverterapikey not set! Set to a key for currencyconverter.com API');
 }
 
 export class Config {
-    // https://docs.google.com/spreadsheets/d/12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs/edit#gid=0
-    // https://sheets.googleapis.com/v4/spreadsheets/SPREADSHEET_ID/values/RANGE?key=apiKey
-    // https://sheets.googleapis.com/v4/spreadsheets/12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs/values/mens_outerwear?key=AIzaSyD2mfHeSMho_JqZYvBbNvkdqr3gumGQsWk
-    // https://developers.google.com/sheets/api/guides/concepts    
-    static getGoogleSheetsUrl(sheetName) {
-        return 'https://sheets.googleapis.com/v4/spreadsheets/'
-            + Config.googleSheetsApi.spreadsheetId + '/values/'
-            + sheetName
-            + '?key=' + Config.googleSheetsApi.googlesheetsapikey;
-    }
-
     static get googleSheetsApi() {
         return {
             spreadsheetId: '12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs',
@@ -30,7 +24,7 @@ export class Config {
             '$': 'USD',
             'HUF': 'HUF'
         }
-    };
+    }
 
     static get defaultSymbol() {
         return {
@@ -43,6 +37,17 @@ export class Config {
         return 'en';
     }
 
+    static get currencyconverterapikey() {
+        return process.env.currencyconverterapikey;
+    }
+
+    static get currencyConvertorURL() {
+        return 'free.currconv.com/api/v7/convert?compact=ultra&' +
+            'apiKey=' + encodeURIComponent(Config.currencyconverterapikey) +
+            'q=';
+    };
+
+    // This is local, not in Sheets, to avoid delaying the time to first paint.
     static get categoryList() {
         return [
             {
@@ -79,4 +84,15 @@ export class Config {
             }
         ];
     }
+
+    // https://docs.google.com/spreadsheets/d/12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs/edit#gid=0
+    // https://sheets.googleapis.com/v4/spreadsheets/SPREADSHEET_ID/values/RANGE?key=apiKey
+    // https://sheets.googleapis.com/v4/spreadsheets/12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs/values/mens_outerwear?key=AIzaSyD2mfHeSMho_JqZYvBbNvkdqr3gumGQsWk
+    // https://developers.google.com/sheets/api/guides/concepts
+    static getGoogleSheetsUrlForSheetName(sheetName) {
+        return 'https://sheets.googleapis.com/v4/spreadsheets/'
+            + Config.googleSheetsApi.spreadsheetId + '/values/'
+            + sheetName
+            + '?key=' + Config.googleSheetsApi.googlesheetsapikey;
+    };
 }

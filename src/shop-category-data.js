@@ -107,7 +107,7 @@ class ShopCategoryData extends I18n(PolymerElement) {
       console.error(req);
       throw new TypeError('Expected a category with sheetName in parameter 1');
     }
-    const url = Config.getGoogleSheetsUrl(req.category.sheetName);
+    const url = Config.getGoogleSheetsUrlForSheetName(req.category.sheetName);
     fetch(url)
       .then(res => {
         console.log('Fetched ', url);

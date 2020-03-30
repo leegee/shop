@@ -4,10 +4,10 @@ New features:
 
 * Adds webpack, retains Polymer CLI
 * Splits larger templates into their own files
-* Adds Translation via i18next
-* Adds currency conversion via free API, prior to PayPal (which  will do the actual conversion).
+* Adds Translation via [i18next](https://www.i18next.com/)
+* Adds currency conversion via the [free.currencyconverterapi.com API](https://free.currencyconverterapi.com/), prior to PayPal (which  will do the actual conversion).
 * Anchor-based routes
-* Data source switched to Google Sheets
+* Data source switched to [Google Sheets](https://developers.google.com/sheets/api)
 * Added Configuration object
 
 ## To Do
@@ -21,7 +21,14 @@ Outstanding features:
 Create a `.env` file in the root directory with the following keys:
 
     googlesheetsapikey
+    currencyconverterapikey
 
+Create a Google Sheet: one sheet per shop category each sheet with columns:
+
+    name title category price description image largeImage
+
+Update `src/Config.js`.
+****
 ## Original README
 
 ### SHOP

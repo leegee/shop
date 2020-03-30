@@ -1,13 +1,17 @@
 /*
 https://polymer-library.polymer-project.org/3.0/docs/devguide/custom-elements#mixins
 
-import { I18n } from './shop-i18n';    
-class MyElement extends I18n(PolymerElement) {
-    static get is() { return 'my-element' }
-    }
-}
+    import { I18n } from './shop-i18n';    
+    class MyElement extends I18n(PolymerElement) { }
 
-i18next.t('key');
+JS: 
+
+    this.t('key');
+
+HTML: 
+
+    <span>[[t('foo')]]</span>
+
 
 */
 
