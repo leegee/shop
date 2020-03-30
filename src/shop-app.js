@@ -87,7 +87,7 @@ class ShopApp extends I18n(PolymerElement) {
 
     // Custom elements polyfill safe way to indicate an element has been upgraded.
     this.removeAttribute('unresolved');
-    // listen for custom events
+
     this.addEventListener('add-cart-item', (e) => this._onAddCartItem(e));
     this.addEventListener('set-cart-item', (e) => this._onSetCartItem(e));
     this.addEventListener('clear-cart', (e) => this._onClearCart(e));
@@ -95,7 +95,7 @@ class ShopApp extends I18n(PolymerElement) {
     this.addEventListener('announce', (e) => this._onAnnounce(e));
     this.addEventListener('dom-change', (e) => this._domChange(e));
     this.addEventListener('show-invalid-url-warning', (e) => this._onFallbackSelectionTriggered(e));
-    // listen for online/offline
+
     afterNextRender(this, () => {
       window.addEventListener('online', (e) => this._notifyNetworkStatus(e));
       window.addEventListener('offline', (e) => this._notifyNetworkStatus(e));

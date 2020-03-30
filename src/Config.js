@@ -42,7 +42,7 @@ export class Config {
     }
 
     static get currencyConvertorURL() {
-        return 'free.currconv.com/api/v7/convert?compact=ultra&' +
+        return '//free.currconv.com/api/v7/convert?compact=ultra&' +
             'apiKey=' + encodeURIComponent(Config.currencyconverterapikey) +
             'q=';
     };
