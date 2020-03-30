@@ -46,8 +46,8 @@ export class Config {
 
     static get defaultSymbol() {
         return {
-            symbol: 'EUR',
-            char: '€'
+            symbol: 'USD',
+            char: '$'
         }
     }
 
