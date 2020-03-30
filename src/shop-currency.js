@@ -50,7 +50,7 @@ export class ShopCurrency extends PolymerElement {
             promises.push(promise);
         });
         return Promise.all(promises).then(() => {
-            console.log(ShopCurrency.rates);
+            console.log('ShopCurrency.rates', ShopCurrency.rates);
             ShopCurrency.ready = true;
             ShopCurrency.gotCurrencies = true;
         });
@@ -98,4 +98,17 @@ if (Config.currencyConvertorURL) {
     if (!ShopCurrency.gotCurrencies) {
         ShopCurrency.getRates();
     }
+}
+else {
+    ShopCurrency.ready = true;
+    ShopCurrency.gotCurrencies = true;
+    ShopCurrency.instance = null;
+    ShopCurrency.symbols = Config.chars2symbols;
+
+    ShopCurrency.symbolsForUser = Object.keys(ShopCurrency.symbols);
+
+    // Factors by which to multiply the values in the data source
+    ShopCurrency.rates = ShopCurrency.setDefaultRates();
+
+    customElements.define(ShopCurrency.is, ShopCurrency);
 }
