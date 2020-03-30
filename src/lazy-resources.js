@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 // shop-app
 import "./shop-icons.js";
+import "./shop-paypal.js";
 import "./shop-analytics.js";
 import "./shop-cart-data.js";
 import "./shop-cart-modal.js";

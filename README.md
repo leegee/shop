@@ -9,6 +9,7 @@ New features:
 * Anchor-based routes
 * Data source switched to [Google Sheets](https://developers.google.com/sheets/api)
 * Added Configuration object
+* Makes Google Analytics optional via COnfig
 
 ## To Do
 
@@ -18,13 +19,19 @@ Outstanding features:
 
 ## Environment
 
-Create a `.env` file in the root directory with  `googlesheetsapikey` and optionally `currencyconverterapikey`.
+Create a `.env` file in the root directory with  `googlesheetsapikey`,
+`ppclientid`, `ppsecret`, and and optionally `currencyconverterapikey`.
 
 Create a Google Sheet: one sheet per shop category each sheet with columns:
 
     name title category price description image largeImage
 
-Update `src/Config.js` to reflect your Sheet.
+Update `src/Config.js` to reflect your Google Sheet.
+
+## PayPal Integration
+
+Integrates PayPal using the simplest of all APIs:
+[https://developer.paypal.com/docs/checkout/integrate/]
 
 ## Original README
 

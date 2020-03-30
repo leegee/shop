@@ -198,7 +198,9 @@
     }
 </style>
 
-<shop-analytics key="UA-39334307-16"></shop-analytics>
+<shop-paypal></shop-paypal>
+<shop-analytics></shop-analytics>
+
 <!--
     app-location and app-route elements provide the state of the URL for the app.
 -->
@@ -240,7 +242,8 @@
             </shop-select>
 
             <shop-select id='languageSelectParent'>
-                <select id="languageSelect" required selected={{I18n.currentLanguage}} on-change="languageSelectChanged">
+                <select id="languageSelect" required selected={{I18n.currentLanguage}}
+                    on-change="languageSelectChanged">
                     <template is="dom-repeat" items="[[languages]]" as="language">
                         <option value="[[language.value]]">{{language.name}}</option>
                     </template>
@@ -248,7 +251,8 @@
             </shop-select>
 
             <a href="#/cart" tabindex="-1">
-                <paper-icon-button icon="shopping-cart" aria-label$="[[t('shopping cart')]]: [[_computePluralizedQuantity(numItems)]]"></paper-icon-button>
+                <paper-icon-button icon="shopping-cart"
+                    aria-label$="[[t('shopping cart')]]: [[_computePluralizedQuantity(numItems)]]"></paper-icon-button>
             </a>
             <div class="cart-badge" aria-hidden="true" hidden$="[[!numItems]]">[[numItems]]</div>
         </div>
@@ -288,7 +292,8 @@
     </template>
 </dom-if>
 
-<iron-pages role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="404">
+<iron-pages role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible"
+    fallback-selection="404">
     <!-- home view -->
     <shop-home name="home" categories="[[categories]]"></shop-home>
     <!-- list view of items in a category -->

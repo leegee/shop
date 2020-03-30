@@ -132,7 +132,7 @@ class ShopApp extends I18n(PolymerElement) {
 
   _pageChanged(page, oldPage) {
     if (page != null) {
-      let cb = this._pageLoaded.bind(this, Boolean(oldPage));
+      const cb = this._pageLoaded.bind(this, Boolean(oldPage));
       switch (page) {
         case 'list':
           import('./shop-list.js').then(cb);
@@ -337,7 +337,6 @@ class ShopApp extends I18n(PolymerElement) {
     this.changeLanguage(this.$.languageSelect.value);
     console.log('languageSelectChange to [%s]', this.$.languageSelect.value);
   }
-
 }
 
 customElements.define(ShopApp.is, ShopApp);

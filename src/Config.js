@@ -112,7 +112,7 @@ export class Config {
     };
 
     static get googleAnalyticsKey() {
-        return undefined;
+        return 'foo-bar' || undefined;
     }
 
     static get payPalCientId() {
