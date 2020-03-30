@@ -18,17 +18,14 @@ Outstanding features:
 
 ## Environment
 
-Create a `.env` file in the root directory with the following keys:
-
-    googlesheetsapikey
-    currencyconverterapikey
+Create a `.env` file in the root directory with  `googlesheetsapikey` and optionally `currencyconverterapikey`.
 
 Create a Google Sheet: one sheet per shop category each sheet with columns:
 
     name title category price description image largeImage
 
-Update `src/Config.js`.
-****
+Update `src/Config.js` to reflect your Sheet.
+
 ## Original README
 
 ### SHOP
