@@ -9,6 +9,24 @@ if (!process.env.currencyconverterapikey) {
 }
 
 export class Config {
+
+    static get defaultlanguage() {
+        return 'en';
+    }
+
+    static get languages() {
+        return undefined;
+        return [
+            {
+                value: 'en',
+                name: 'English',
+            }, {
+                value: 'hu',
+                name: 'Magyar',
+            }
+        ];
+    }
+
     static get googleSheetsApi() {
         return {
             spreadsheetId: '12R_GOM47f9rgvIDveaZkfRiwZjUMHBicbIzXVIotDPs',
@@ -33,15 +51,12 @@ export class Config {
         }
     }
 
-    static get defaultlanguage() {
-        return 'en';
-    }
-
     static get currencyconverterapikey() {
         return process.env.currencyconverterapikey;
     }
 
     static get currencyConvertorURL() {
+        return undefined; // Turns off currency conversion
         return '//free.currconv.com/api/v7/convert?compact=ultra&' +
             'apiKey=' + encodeURIComponent(Config.currencyconverterapikey) +
             'q=';

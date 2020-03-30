@@ -99,9 +99,24 @@ class ShopApp extends I18n(PolymerElement) {
     afterNextRender(this, () => {
       window.addEventListener('online', (e) => this._notifyNetworkStatus(e));
       window.addEventListener('offline', (e) => this._notifyNetworkStatus(e));
-      this.$.currencySelect.value = Config.defaultSymbol.char;
-      this.$.languageSelect.value = this.currentLanguageKey;
+      if (Config.currencyConvertorURL) {
+        this.$.currencySelect.value = Config.defaultSymbol.char;
+      }
+      this.$.languageSelect.value = this.currentLanguageKey || Config.defaultlanguage;
     });
+
+    if (!Config.currencyConvertorURL) {
+      this.$.currencySelectParent.remove();
+    }
+
+    if (!Config.currencyConvertorURL) {
+      this.$.currencySelectParent.remove();
+    }
+
+    if (!Config.languages) {
+      this.$.languageSelectParent.remove();
+    }
+
   }
 
   _routePageChanged(page) {

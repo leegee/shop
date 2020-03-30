@@ -4,8 +4,8 @@ New features:
 
 * Adds webpack, retains Polymer CLI
 * Splits larger templates into their own files
-* Adds Translation via [i18next](https://www.i18next.com/)
-* Adds currency conversion via the [free.currencyconverterapi.com API](https://free.currencyconverterapi.com/), prior to PayPal (which  will do the actual conversion).
+* Adds optional translations via [i18next](https://www.i18next.com/)
+* Adds optional, easy-to-subclass currency conversion via the [free.currencyconverterapi.com API](https://free.currencyconverterapi.com/), prior to PayPal (which  will do the actual conversion).
 * Anchor-based routes
 * Data source switched to [Google Sheets](https://developers.google.com/sheets/api)
 * Added Configuration object

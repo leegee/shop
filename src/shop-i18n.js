@@ -1,14 +1,14 @@
 /*
 https://polymer-library.polymer-project.org/3.0/docs/devguide/custom-elements#mixins
 
-    import { I18n } from './shop-i18n';    
+    import { I18n } from './shop-i18n';
     class MyElement extends I18n(PolymerElement) { }
 
-JS: 
+JS:
 
     this.t('key');
 
-HTML: 
+HTML:
 
     <span>[[t('foo')]]</span>
 
@@ -31,15 +31,7 @@ const ShopTranslations = (superClass) => class extends superClass {
     }
 
     get languages() {
-        return [
-            {
-                value: 'en',
-                name: 'English',
-            }, {
-                value: 'hu',
-                name: 'Magyar',
-            }
-        ];
+        return Config.languages;
     }
 
     t(key) {

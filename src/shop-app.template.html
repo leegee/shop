@@ -231,7 +231,7 @@
         </div>
         <div class="logo" main-title=""><a href="#/" aria-label="[[t('shop-home')]]">[[t('shop')]]</a></div>
         <div class="cart-btn-container">
-            <shop-select>
+            <shop-select id='currencySelectParent'>
                 <select id="currencySelect" required on-change="currencySelectChanged">
                     <template is="dom-repeat" items="[[currencySymbolsForUser]]" as="symbol">
                         <option value="[[symbol]]">{{symbol}}</option>
@@ -239,7 +239,7 @@
                 </select>
             </shop-select>
 
-            <shop-select>
+            <shop-select id='languageSelectParent'>
                 <select id="languageSelect" required selected={{I18n.currentLanguage}} on-change="languageSelectChanged">
                     <template is="dom-repeat" items="[[languages]]" as="language">
                         <option value="[[language.value]]">{{language.name}}</option>

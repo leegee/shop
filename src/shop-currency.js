@@ -82,18 +82,20 @@ export class ShopCurrency extends PolymerElement {
     }
 }
 
-ShopCurrency.ready = false;
-ShopCurrency.gotCurrencies = false;
-ShopCurrency.instance = null;
-ShopCurrency.symbols = Config.chars2symbols;
+if (Config.currencyConvertorURL) {
+    ShopCurrency.ready = false;
+    ShopCurrency.gotCurrencies = false;
+    ShopCurrency.instance = null;
+    ShopCurrency.symbols = Config.chars2symbols;
 
-ShopCurrency.symbolsForUser = Object.keys(ShopCurrency.symbols);
+    ShopCurrency.symbolsForUser = Object.keys(ShopCurrency.symbols);
 
-// Factors by which to multiply the values in the data source
-ShopCurrency.rates = ShopCurrency.setDefaultRates();
+    // Factors by which to multiply the values in the data source
+    ShopCurrency.rates = ShopCurrency.setDefaultRates();
 
-customElements.define(ShopCurrency.is, ShopCurrency);
+    customElements.define(ShopCurrency.is, ShopCurrency);
 
-if (!ShopCurrency.gotCurrencies) {
-    ShopCurrency.getRates();
+    if (!ShopCurrency.gotCurrencies) {
+        ShopCurrency.getRates();
+    }
 }
