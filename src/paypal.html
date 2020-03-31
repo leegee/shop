@@ -1,0 +1,144 @@
+<head>
+  <title>Paypal express checkout</title>
+  <meta name="robots" content="noindex,nofollow">
+
+  <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+  <script>
+  var searchParams = new URLSearchParams(window.location.search);
+  var bridgeTimeoutHandler;
+  var initialised;
+
+  function sendMessage(type, data) {
+    if (window.parent) {
+      window.parent.postMessage({
+        type,
+        data
+      }, `${window.location.protocol}//${window.location.host}`);
+    }
+  }
+
+  // helper to append params to an url
+  function appendUrlParam(url, paramString) {
+    var url = url || '';
+
+    if (paramString) {
+      var bindingChar = url.indexOf('?') >= 0 ? '&' : '?';
+      return url + bindingChar + paramString;
+    }
+
+    return url;
+  }
+
+  // data bridge recieving
+  window.addEventListener("message", (event) => {
+    // bail for wrong origin
+    if (event.origin !== `${window.location.protocol}//${window.location.host}`) { return; }
+
+    switch (event.data.type) {
+      case "paypal-window-init-ack":
+        window.clearTimeout(bridgeTimeoutHandler);
+        if (!initialised) {
+          initialised = true;
+          render();
+        }
+        break;
+      case "paypal-window-success-ack":
+        window.clearTimeout(bridgeTimeoutHandler);
+        break;
+      case "paypal-window-update":
+        let data = event.data.data;
+        searchParams.set('amount', data.amount);
+        searchParams.set('currency', data.currency);
+        searchParams.set('reference', data.reference);
+        break;
+      default:
+        // do nothing
+    }
+  });
+
+  function displayError(message) {
+    document.querySelector("#container").innerHTML = message;
+    throw new Error(message);
+  }
+
+  function render() {
+    var button = paypal.Button.render({
+
+      env: searchParams.get("env"),
+
+      // PayPal Client IDs - replace with your own
+      // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+      client: {
+        sandbox:    searchParams.get("sandboxId"),
+        production: searchParams.get("productionId"),
+      },
+
+      // Show the buyer a 'Pay Now' button in the checkout flow
+      commit: true,
+
+      onDisplay: function(data) {
+        sendMessage("paypal-window-rendered");
+      },
+
+      // payment() is called when the button is clicked
+      payment: (data, actions) => {
+        // Make a call to the REST api to create the payment
+        return actions.payment.create({
+          payment: {
+            transactions: [
+              {
+                amount: { total: searchParams.get("amount"), currency: searchParams.get("currency") },
+                custom: searchParams.get("reference"),
+              },
+            ],
+            redirect_urls: {
+              return_url: appendUrlParam(searchParams.get("referer"), "paypal-window-success"),
+              cancel_url: appendUrlParam(searchParams.get("referer"), "paypal-window-close"),
+            },
+          },
+        });
+      },
+
+      // onAuthorize() is called when the buyer approves the payment
+      onAuthorize: (data, actions) => {
+        // Make a call to the REST api to execute the payment
+        return actions.payment.execute().then( () => {
+          bridgeTimeoutHandler = window.setTimeout(function() {
+            displayError("paypal postMessage bridge died");
+          }, 1000);
+
+          // send success via bridge
+          sendMessage("paypal-window-success", data);
+        });
+      },
+
+      onCancel: (data, actions) => {
+        sendMessage("paypal-window-close");
+      },
+
+      onError: (error) => {
+        sendMessage("paypal-window-error", error);
+      },
+
+    }, "#container");
+  }
+
+  // send postMessage bridge text message to init
+  bridgeTimeoutHandler = window.setTimeout(function() {
+    displayError("paypal postMessage bridge couldnt be established");
+  }, 1000);
+  sendMessage("paypal-window-init");
+  </script>
+  <style>
+    .centered {
+      font-size: 0.8em;
+      color: red;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="centered">
+    <div id="container"></div>
+  </div>
+</body>

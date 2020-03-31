@@ -12,9 +12,16 @@ export class ShopCurrency extends PolymerElement {
         return {
             char: {
                 type: String,
-                // Set the initial value of the symbol to that used in the data source and ignored in the conversion, as is a factor of 1
+                // Set the initial value of the symbol to that used in the data source
+                // and ignored in the conversion, as is a factor of 1
                 value: Config.defaultSymbol.char,
                 observer: 'symbolChanged'
+            },
+            symbol: {
+                type: String,
+                notify: true,
+                reflectToAttribute: true,
+                computed: '_computeSymbol()'
             },
             value: {
                 type: Number,
@@ -62,6 +69,10 @@ export class ShopCurrency extends PolymerElement {
         })
     }
 
+    _computeSymbol() {
+        return ShopCurrency.symbols[this.char];
+    }
+
     valueChanged() {
         this._format();
     }
@@ -71,6 +82,14 @@ export class ShopCurrency extends PolymerElement {
             throw new TypeError('No such currency symbol as "' + this.char + '"');
         }
         this._format();
+        document.dispatchEvent(
+            new CustomEvent('currency-set', {
+                detail: {
+                    currency: this.symbol
+                }
+            }
+            )
+        );
     }
 
     _format() {

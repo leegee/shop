@@ -57,6 +57,16 @@ class ShopApp extends I18n(PolymerElement) {
         computed: '_computeShouldRenderDrawer(smallScreen, loadComplete)'
       },
 
+      currency: {
+        type: String,
+        notify: true,
+        reflectToAttribute: true,
+        value(){
+          const el = document.querySelector('shop-currency');
+          return el ? el.symbol : undefined;
+        }
+      },
+
       currencySymbolsForUser: {
         value() {
           return ShopCurrency.symbolsForUser;
@@ -95,6 +105,7 @@ class ShopApp extends I18n(PolymerElement) {
     this.addEventListener('announce', (e) => this._onAnnounce(e));
     this.addEventListener('dom-change', (e) => this._domChange(e));
     this.addEventListener('show-invalid-url-warning', (e) => this._onFallbackSelectionTriggered(e));
+    document.addEventListener('currency-set', (e) => this._onCurrencySet(e));
 
     afterNextRender(this, () => {
       window.addEventListener('online', (e) => this._notifyNetworkStatus(e));
@@ -102,7 +113,9 @@ class ShopApp extends I18n(PolymerElement) {
       if (Config.currencyConvertorURL) {
         this.$.currencySelect.value = Config.defaultSymbol.char;
       }
-      this.$.languageSelect.value = this.currentLanguageKey || Config.defaultlanguage;
+      if (Config.languages) {
+        this.$.languageSelect.value = this.currentLanguageKey || Config.defaultlanguage;
+      }
     });
 
     if (!Config.currencyConvertorURL) {
@@ -116,7 +129,6 @@ class ShopApp extends I18n(PolymerElement) {
     if (!Config.languages) {
       this.$.languageSelectParent.remove();
     }
-
   }
 
   _routePageChanged(page) {
@@ -257,6 +269,10 @@ class ShopApp extends I18n(PolymerElement) {
     this.$.cart.addItem(event.detail);
     this._cartModal.open();
     this._announce(this.t('Item added to the cart'));
+  }
+
+  _onCurrencySet(event) {
+    this.currency = event.detail.currency;
   }
 
   _onSetCartItem(event) {

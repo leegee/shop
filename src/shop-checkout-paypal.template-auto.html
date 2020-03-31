@@ -94,7 +94,8 @@
   <iron-pages id="pages" selected="[[state]]" attr-for-selected="state">
     <div state="init">
 
-      <iron-form id="checkoutForm" on-iron-form-response="_didReceiveResponse" on-iron-form-presubmit="_willSendRequest">
+      <iron-form id="checkoutForm" on-iron-form-response="_didReceiveResponse"
+        on-iron-form-presubmit="_willSendRequest">
         <form method="post" action="data/sample_success_response.json" enctype="application/x-www-form-urlencoded">
 
           <div class="subsection" visible$="[[!_hasItems]]">
@@ -130,11 +131,15 @@
                   <shop-currency value=[[total]]></shop-currency>
                 </div>
               </div>
-              <shop-button responsive id="submitBox">
+
+              <!-- <shop-button responsive id="submitBox">
                 <input type="button" on-click="_submit" value="Place Order">
-              </shop-button>
+              </shop-button> -->
+
+              <iframe id="frame" width="100%" height="55px" frameBorder="0"></iframe>
+
               <a aria-label="Continue Shopping" href="#/">Continue Shopping</a>
-              </section>
+            </section>
           </div>
         </form>
       </iron-form>

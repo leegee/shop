@@ -3,19 +3,20 @@
 New features:
 
 * Adds webpack, retains Polymer CLI
-* Splits larger templates into their own files
-* Adds optional translations via [i18next](https://www.i18next.com/)
-* Adds optional, easy-to-subclass currency conversion via the [free.currencyconverterapi.com API](https://free.currencyconverterapi.com/), prior to PayPal (which  will do the actual conversion).
 * Anchor-based routes
+* Splits larger templates into their own files
+* Adds optional, easy-to-subclass currency conversion via the [free.currencyconverterapi.com API](https://free.currencyconverterapi.com/), prior to PayPal (which  will do the actual conversion).
 * Data source switched to [Google Sheets](https://developers.google.com/sheets/api)
 * Added Configuration object
-* Makes Google Analytics optional via COnfig
+* Makes Google Analytics optional via Config
+* The beginning of optional translations via [i18next](https://www.i18next.com/)
 
 ## To Do
 
 Outstanding features:
 
-* PayPal checkout (in progress: 50%)
+* Integrates code from morbidick's [PayPal checkout](https://github.com/morbidick/paypal-express-checkout/blob/master/paypal.html) (in progress: 70%)
+* i18n of static elements and sheet details
 
 ## Environment
 

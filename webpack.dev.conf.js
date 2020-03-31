@@ -63,6 +63,10 @@ module.exports = {
         to: '.'
       },
       {
+        from: path.resolve(__dirname, './src/paypal.html'),
+        to: '.'
+      },
+      {
         from: path.resolve(__dirname, './images'),
         to: 'images'
       },
