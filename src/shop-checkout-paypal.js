@@ -150,25 +150,22 @@ class ShopCheckout extends PolymerElement {
             return;
         }
 
-        let amount = 0;
-
         const params = new URLSearchParams();
         params.set('env', this._env());
         params.set('sandboxId', this.sandboxId);
         params.set('productionId', this.productionId);
-        params.set('amount', Number(this.total).toFixed(2));
+        params.set('total', Number(this.total).toFixed(2));
         params.set('currency', this.currency);
         params.set('reference', this.reference);
         params.set('referer', document.location.href);
 
-        console.warn(params.toString());
+        alert(params.get('amount'));
 
+        // https://developer.paypal.com/docs/commerce-platform/v1/checkout/create-checkout-button/
         this._frame.src = `${this.resolveUrl("paypal.html")}?${params.toString()}`;
     }
 
     connectedCallback() {
-        // el.src = 'https://www.paypal.com/sdk/js?client-id=' + Config.payPalCientId;
-
         super.connectedCallback();
         this.handleParams();
         this._frame = this.$.frame;
