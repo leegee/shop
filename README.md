@@ -35,7 +35,7 @@ Create a `.env` file in the root directory containing:
 
 Create a Google Sheet document with one sheet per shop category each sheet with titled columns, whose text is used by the code:
 
-    name title category price description image largeImage sizes quantities
+    name title price description image largeImage sizes quantities
 
 The `image` and `largeImage` fields should be URLs. As with the original project, the former image is 250 px square, the latter 532 px square.
 
