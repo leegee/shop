@@ -9,6 +9,7 @@ New features:
 * Data source switched to [Google Sheets](https://developers.google.com/sheets/api)
 * Added Configuration object
 * Makes Google Analytics optional via Config
+* Makes sizes and quantities optional (eg for selling paintings)
 * The beginning of optional translations via [i18next](https://www.i18next.com/)
 
 ## To Do
@@ -17,24 +18,60 @@ Outstanding features:
 
 * Integrates code from morbidick's [PayPal checkout](https://github.com/morbidick/paypal-express-checkout/blob/master/paypal.html) (in progress: 70%)
 * i18n of static elements and sheet details
+* Take sizes/quantities as ranges from Sheet, not just booleans
 
-## Environment
+## Environment and Configuration
 
-Create a `.env` file in the root directory with  `googlesheetsapikey`,
-`ppclientid`, `ppsecret`, and and optionally `currencyconverterapikey`.
+Create a `.env` file in the root directory containing:
 
-Create a Google Sheet: one sheet per shop category each sheet with columns:
+    googlesheetsapikey
+    spreadsheetid
+    currencyconverterapikey
+    ppac - PayPal account
+    ppclientid - PayPal Client ID
+    ppsecret - Not used
 
-    name title category price description image largeImage
+### Google Sheets
 
-Update `src/Config.js` to reflect your Google Sheet.
+Create a Google Sheet document with one sheet per shop category each sheet with titled columns, whose text is used by the code:
 
-## PayPal Integration
+    name title category price description image largeImage sizes quantities
 
-Integrates PayPal using the simplest of all APIs:
-[https://developer.paypal.com/docs/checkout/integrate/]
+The `image` and `largeImage` fields should be URLs. As with the original project, the former image is 250 px square, the latter 532 px square.
 
-## Original README
+The `sizes` and `quantities` columns control whether or not to display those inputs, and are booleans indicated by being blank or having any content.
+
+To get the `spreadsheetid`, in Sheets, select 'Share', and 'get shareable link':
+
+    https://docs.google.com/spreadsheets/d/XXX_XXX_XXX/edit?usp=sharing
+
+your spreadsheet ID is `123_XXX_XXX_XXX`.
+
+Update `src/Config.js` `categoryList` to reflect your Google Sheet, the static being
+an array of objects that reflect the individual sheets that detail the categories:
+
+    {
+        name: 'sheet-name',                     // Text on the sheet tab
+        sheetName: 'sheet-name',                // Text on the sheet tab
+        title: 'Category Name',                 // Category title for display
+        placeholder: 'data:image/png;base64...' // Lo-res preload Base64 encoded category hero image
+        image: 'images/mens_outerwear.png',     // Hi-res final Base64 encoded category hero image
+    },
+
+### PayPal Integration
+
+Integrates PayPal using the simplest of all APIs via Morbidick's paypal-button-express.
+Settings are in `src/Config.js`.
+
+
+
+
+
+
+
+
+
+# Original README
 
 ### SHOP
 

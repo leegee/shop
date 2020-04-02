@@ -12,7 +12,7 @@ import { microTask } from '@polymer/polymer/lib/utils/async.js';
 import { I18n } from './shop-i18n';
 import './shop-currency.js';
 import { getTemplate } from './getTemplate';
-import * as view from './shop-detail.template.html'; 
+import * as view from './shop-detail.template.html';
 
 class ShopDetail extends I18n(PolymerElement) {
   static get template() {
@@ -21,31 +21,35 @@ class ShopDetail extends I18n(PolymerElement) {
 
   static get is() { return 'shop-detail'; }
 
-  static get properties() { return {
+  static get properties() {
+    return {
 
-    item: Object,
+      item: Object,
 
-    route: Object,
+      route: Object,
 
-    routeData: Object,
+      routeData: Object,
 
-    visible: {
-      type: Boolean,
-      value: false
-    },
+      visible: {
+        type: Boolean,
+        value: false
+      },
 
-    offline: {
-      type: Boolean,
-      observer: '_offlineChanged'
-    },
+      offline: {
+        type: Boolean,
+        observer: '_offlineChanged'
+      },
 
-    failure: Boolean
+      failure: Boolean
 
-  }}
+    }
+  }
 
-  static get observers() { return [
-    '_itemChanged(item, visible)'
-  ]}
+  static get observers() {
+    return [
+      '_itemChanged(item, visible)'
+    ]
+  }
 
   _itemChanged(item, visible) {
     if (visible) {
@@ -53,20 +57,27 @@ class ShopDetail extends I18n(PolymerElement) {
         microTask, () => {
           // The item description contains escaped HTML (e.g. "&lt;br&gt;"), so we need to
           // unescape it ("<br>") and set it as innerHTML.
-          let text = item ? item.description : '';
-          this.$.desc.innerHTML = this._unescapeText(text);
+          this.$.desc.innerHTML = this._unescapeText(item ? item.description : '');
 
           // Reset the select menus.
-          this.$.quantitySelect.value = '1';
-          this.$.sizeSelect.value = 'M';
+          if (item) {
+            if (item.quantities) {
+              this.$.quantitySelect.value = '1';
+            }
+            if (item.sizes) {
+              this.$.sizeSelect.value = 'M';
+            }
+          }
 
           this.dispatchEvent(new CustomEvent('change-section', {
             bubbles: true, composed: true, detail: {
               category: item ? item.category : '',
               title: item ? item.title : '',
-              description: item ? item.description.substring(0, 100) : '',
+              // description: item ? item.description.substring(0, 100) : '',
+              description: item ? item.description : '',
               image: item ? this.baseURI + item.image : ''
-            }}));
+            }
+          }));
         })
     }
   }
@@ -82,9 +93,10 @@ class ShopDetail extends I18n(PolymerElement) {
     this.dispatchEvent(new CustomEvent('add-cart-item', {
       bubbles: true, composed: true, detail: {
         item: this.item,
-        quantity: parseInt(this.$.quantitySelect.value, 10),
-        size: this.$.sizeSelect.value
-      }}));
+        quantity: this.$.quantitySelect ? parseInt(this.$.quantitySelect.value, 10) : 1,
+        size: this.$.sizeSelect ? this.$.sizeSelect.value : undefined,
+      }
+    }));
   }
 
   _isDefined(item) {

@@ -124,7 +124,8 @@
     <h1>[[item.title]]</h1>
     <div class="price"><shop-currency value=[[item.price]]></shop-currency></div>
     <div class="pickers">
-      <shop-select>
+
+      <shop-select hidden=[[!item.sizes]]>
         <label id="sizeLabel" prefix>Size</label>
         <select id="sizeSelect" aria-labelledby="sizeLabel">
           <option value="XS">XS</option>
@@ -137,7 +138,8 @@
           <shop-underline></shop-underline>
         </shop-md-decorator>
       </shop-select>
-      <shop-select>
+
+      <shop-select hidden=[[!item.quantities]]>
         <label id="quantityLabel" prefix>Quantity</label>
         <select id="quantitySelect" aria-labelledby="quantityLabel">
           <option value="1" selected>1</option>
