@@ -21,6 +21,8 @@ import "@polymer/app-layout/app-drawer/app-drawer.js";
 
 import "./shop-currency.js";
 
+import "./paypal-button-express.js";
+
 // shop-list
 // shop-detail
 import "./shop-network-warning.js";

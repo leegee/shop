@@ -10,11 +10,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <base href="/">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- Begin PayPal for WebComponents -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AXp9RA3n8wdzT5yVg1mPUew51aKA8_PgILPgwFky5Fu0MBsE91T7ExXDxsKQPqc_XW6Q2OqRyrLcXKOu"></script>
+  <script>
+    window.customElements = window.customElements || {};
+    window.customElements.forcePolyfill = true;
+    window.ShadyDOM = {
+      force: true
+    };
+    </script>
+  <script src="webcomponentjs/webcomponents-bundle.js"></script>
+  <!-- End PayPal for WebComponents -->
 
   <title>SHOP</title>
   <meta name="description" content="Polymer Shop Demo">
@@ -28,7 +41,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="manifest" href="manifest.json">
 
   <style>
-
     body {
       margin: 0;
       font-family: 'Roboto', 'Noto', sans-serif;
@@ -50,12 +62,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       padding: 0 16px;
       overflow: visible;
     }
-
   </style>
-
 </head>
-<body>
 
+<body>
   <shop-app unresolved>SHOP</shop-app>
 
   <!-- <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
@@ -64,6 +74,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     window.performance && performance.mark && performance.mark('index.html');
   </script>
-
 </body>
+
 </html>

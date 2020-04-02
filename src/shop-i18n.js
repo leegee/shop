@@ -12,7 +12,6 @@ HTML:
 
     <span>[[t('foo')]]</span>
 
-
 */
 
 import { Config } from './Config';
@@ -20,12 +19,11 @@ import i18next from 'i18next';
 import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 const ShopTranslations = (superClass) => class extends superClass {
-
     constructor() {
         super();
         i18next.init({
             lng: ShopTranslations.currentLanguage,
-            debug: true,
+            debug: false,
             resources: ShopTranslations.translations
         });
     }

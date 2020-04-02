@@ -28,7 +28,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, '..', 'dist')
+    path: path.resolve(__dirname, 'dist')
   },
   module: {
     rules: [
@@ -74,6 +74,26 @@ module.exports = {
         from: path.resolve(__dirname, './data'),
         to: 'data'
       },
+
+      // {
+      //   from: path.join(path.resolve(__dirname, './node_modules/paypal-checkout'),
+      //     '*.js'
+      //   ),
+      //   to: 'paypal-checkout/'
+      // },
+      // {
+      //   from: path.join(path.resolve(__dirname, './node_modules/braintree-web/client'),
+      //     '*.js'
+      //   ),
+      //   to: 'braintree-web/client/'
+      // },
+      // {
+      //   from: path.join(path.resolve(__dirname, './node_modules/braintree-web/paypal-checkout'),
+      //     '*.js'
+      //   ),
+      //   to: 'braintree-web/paypal-checkout/'
+      // },
+
       {
         from: path.join(
           path.resolve(__dirname, './node_modules/@webcomponents/webcomponentsjs/'),

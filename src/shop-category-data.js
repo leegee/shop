@@ -91,7 +91,6 @@ class ShopCategoryData extends I18n(PolymerElement) {
       return;
     }
     this._getResource({
-      // url: category.url,
       category: category,
       onLoad(json) {
         this.set('category.items', json);
@@ -108,6 +107,7 @@ class ShopCategoryData extends I18n(PolymerElement) {
       throw new TypeError('Expected a category with sheetName in parameter 1');
     }
     const url = Config.getGoogleSheetsUrlForSheetName(req.category.sheetName);
+    console.log('Fetching shop cat data from', url);
     fetch(url)
       .then(res => {
         console.log('Fetched ', url);

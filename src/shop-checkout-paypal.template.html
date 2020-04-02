@@ -130,9 +130,17 @@
                   <shop-currency value=[[total]]></shop-currency>
                 </div>
               </div>
-              <shop-button responsive id="submitBox">
-                <input type="button" on-click="_submit" value="Place Order">
-              </shop-button>
+
+              <h1>[[currency]] [[total]] /[[sandbox]]/</h1>
+                <paypal-button-express
+                  sandbox=[[sandbox]]
+                  sandbox-id="[[sandboxId]]"
+                  production-id="[[productionId]]"
+                  amount="[[total]]"
+                  currency="[[currency]]"
+                  reference="[[reference]]"
+                ></paypal-button-express>
+
               <a aria-label="Continue Shopping" href="#/">Continue Shopping</a>
               </section>
           </div>

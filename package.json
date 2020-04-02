@@ -17,6 +17,7 @@
     "wp:dev": "webpack-dev-server --open --config ./webpack.dev.conf.js",
     "start": "npm run wp:dev",
     "wp:build": "webpack --config ./webpack.prod.conf.js",
+    "wp:build:dev": "webpack --config ./webpack.dev.conf.js",
     "wp:test-dist": "node -e \"require('connect')().use(require('serve-static')(__dirname+'/dist')).listen(9090, () => { console.log('Server running on http://localhost:9090 ...'); });\""
   },
   "dependencies": {
@@ -35,9 +36,13 @@
     "@polymer/paper-icon-button": "^3.0.0",
     "@polymer/paper-spinner": "^3.0.0",
     "@polymer/polymer": "^3.0.0",
-    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "@webcomponents/webcomponentsjs": "^2.4.3",
+    "braintree-web": "^3.60.0",
     "dotenv": "^6.1.0",
-    "i18next": "^12.0.0"
+    "i18next": "^12.0.0",
+    "install": "^0.13.0",
+    "npm": "^6.14.4",
+    "paypal-checkout": "^4.0.311"
   },
   "devDependencies": {
     "clean-webpack-plugin": "^1.0.0",

@@ -83,17 +83,17 @@
 
         // https://developer.paypal.com/docs/commerce-platform/v1/checkout/create-checkout-button/
         payment: (data, actions) => {
-          const total = searchParams.get("total");
-          if (!total || total === "undefined") {
+          const amount = searchParams.get("amount");
+          if (!amount || amount === "undefined") {
             console.error(window.location.search);
-            throw new Error('No amount in query string?');
+            throw new Error('No amount in query string? ' + document.location.search);
           }
           // Make a call to the REST api to create the payment
           const req = {
             payment: {
               transactions: [{
                 amount: {
-                  total: total,
+                  total: amount,
                   currency: searchParams.get("currency")
                 },
                 custom: searchParams.get("reference"),

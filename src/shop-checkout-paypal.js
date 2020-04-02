@@ -1,6 +1,12 @@
+// const paypal = require('paypal-checkout');
+// const client = require('braintree-web/client');
+// const paypalCheckout = require('braintree-web/paypal-checkout');
+
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import '@polymer/app-route/app-route.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
+import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
+import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
 import './shop-button.js';
 import './shop-common-styles.js';
@@ -8,12 +14,10 @@ import './shop-form-styles.js';
 import './shop-input.js';
 import './shop-select.js';
 import './shop-checkbox.js';
-import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
-import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
 import { Config } from './Config';
 import { getTemplate } from './getTemplate';
-import * as view from './shop-checkout-paypal.template-auto.html';
+import * as view from './shop-checkout-paypal.template.html';
 
 class ShopCheckout extends PolymerElement {
     static get template() {
@@ -79,17 +83,17 @@ class ShopCheckout extends PolymerElement {
             // whether to use sandbox mode
             sandbox: {
                 type: Boolean,
-                reflectToAttribute: true,
-                value: true,
+                value: Config.useSandbox,
             },
-            // sandbox client id (https://developer.paypal.com/developer/applications/create)
+            // // sandbox client id (https://developer.paypal.com/developer/applications/create)
             sandboxId: {
                 type: String,
-                value: Config.payPalCientId,
+                value: Config.payPalSandboxClientId,
             },
             // production client id
             productionId: {
                 type: String,
+                value: Config.payPalClientId,
             },
             // amount currency
             currency: {
@@ -98,186 +102,15 @@ class ShopCheckout extends PolymerElement {
                     return document.querySelector('shop-app').getAttribute('currency');
                 },
             },
-            // payment reference (optional)
-            reference: {
-                type: String,
-            },
-            // whether events bubble
-            bubbles: {
-                type: Boolean,
-                value: false,
-            },
-            // the paypal response data
-            response: {
-                type: Object,
-                notify: true,
-                readonly: true,
-            },
-            // the iframe to render the button
-            _frame: {
-                type: Object,
-            },
-            // postMessage listener and handler
-            _handler: {
-                type: Object,
-            },
         }
     }
 
     static get observers() {
         return [
             '_updateState(routeActive, routeData)',
-            '_updateFrame(amount, currency, reference)',
-            'open(sandbox, sandboxId, productionId, cart, currency)',
         ]
     }
 
-    // update iframe url
-    open() {
-        // bail if frame isnt initialized yet
-        if (!this._frame) {
-            console.error('No frame');
-            return;
-        }
-        // bail if no ids are set
-        if (!this.productionId && !(this.sandbox && this.sandboxId)) {
-            console.error('No Ids');
-            return;
-        }
-
-        if (!this.cart || !this.cart.length) {
-            console.error('No cart');
-            return;
-        }
-
-        const params = new URLSearchParams();
-        params.set('env', this._env());
-        params.set('sandboxId', this.sandboxId);
-        params.set('productionId', this.productionId);
-        params.set('total', Number(this.total).toFixed(2));
-        params.set('currency', this.currency);
-        params.set('reference', this.reference);
-        params.set('referer', document.location.href);
-
-        alert(params.get('amount'));
-
-        // https://developer.paypal.com/docs/commerce-platform/v1/checkout/create-checkout-button/
-        this._frame.src = `${this.resolveUrl("paypal.html")}?${params.toString()}`;
-    }
-
-    connectedCallback() {
-        super.connectedCallback();
-        this.handleParams();
-        this._frame = this.$.frame;
-        this._handler = this._eventHandler.bind(this);
-        window.addEventListener("message", this._handler);
-    }
-
-
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        window.removeEventListener("message", this._handler);
-        this._frame = null;
-    }
-
-    // detect from url params if the page is a redirect from the payment flow
-    async handleParams() {
-        // queue as micro task
-        await 0;
-        let searchParams = new URLSearchParams(window.location.search);
-
-        if (searchParams.has("paypal-window-success")) {
-            let data = {
-                // map the callback url params to the api response
-                paymentID: searchParams.get("paymentId"),
-                paymentToken: searchParams.get("token"),
-                payerID: searchParams.get("PayerID"),
-            };
-
-            this._fireSuccess(data);
-            this.response = data;
-        }
-        if (searchParams.has("paypal-window-error")) {
-            this._fireError();
-        }
-    }
-
-    _updateFrame() {
-        this._sendMessage('paypal-window-update', {
-            amount: this.amount,
-            currency: this.currency,
-            reference: this.reference,
-        });
-    }
-
-    _sendMessage(type, data) {
-        if (this._frame) {
-            this._frame.contentWindow.postMessage({
-                type,
-                data
-            }, `${window.location.protocol}//${window.location.host}`);
-        }
-    }
-
-    _fireSuccess(data) {
-        /**
-         * @event paypal-success Fired on succesful checkout.
-         */
-        this.dispatchEvent(new CustomEvent('paypal-success', {
-            detail: data,
-            bubbles: this.bubbles,
-            composed: true,
-        }));
-    }
-
-    _fireError(data) {
-        /**
-         * @event paypal-error Fired on paypal error or window close.
-         */
-        this.dispatchEvent(new CustomEvent('paypal-error', {
-            detail: data,
-            bubbles: this.bubbles,
-            composed: true,
-        }));
-    }
-
-    // data bridge recieving
-    _eventHandler(event) {
-        // bail for wrong origin
-        if (event.origin !== `${window.location.protocol}//${window.location.host}`) { return; }
-
-        switch (event.data.type) {
-            case "paypal-window-init":
-                this._sendMessage("paypal-window-init-ack");
-                break;
-            case "paypal-window-rendered":
-                this._updateFrame();
-                break;
-            case "paypal-window-success":
-                this._sendMessage("paypal-window-success-ack");
-                this.response = event.data.data;
-                this._fireSuccess(event.data.data);
-                break;
-            case "paypal-window-error":
-                this._sendMessage("paypal-window-error-ack");
-                this._fireError(event.data.data);
-                break;
-            case "paypal-window-close":
-                this._sendMessage("paypal-window-close-ack");
-                this._fireError("user closed window");
-                break;
-            default:
-            // do nothing
-        }
-    }
-
-    _env() {
-        return this.sandbox ? 'sandbox' : 'production';
-    }
-
-    /**
-     * Sets the valid state and updates the location.
-     */
     _pushState(state) {
         this._validState = state;
         this.set('route.path', state);
@@ -298,6 +131,15 @@ class ShopCheckout extends PolymerElement {
             }
         }
         this.state = 'init';
+    }
+
+    _addPayPal() {
+        // const el = document.createElement('script');
+        // el.src = "https://www.paypal.com/sdk/js?client-id=" + Config.payPalSandboxClientId;
+        // el.onload = () => window.paypal.Buttons().render('#paypal-area');
+        // document.head.appendChild(el);
+        // const topLevel = document.querySelector('body /deep/ #paypal-area');
+        // window.paypal.Buttons().render('#paypal-area');
     }
 
     /**
