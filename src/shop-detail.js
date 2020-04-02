@@ -55,9 +55,7 @@ class ShopDetail extends I18n(PolymerElement) {
     if (visible) {
       this._itemChangeDebouncer = Debouncer.debounce(this._itemChangeDebouncer,
         microTask, () => {
-          // The item description contains escaped HTML (e.g. "&lt;br&gt;"), so we need to
-          // unescape it ("<br>") and set it as innerHTML.
-          this.$.desc.innerHTML = this._unescapeText(item ? item.description : '');
+          this.$.desc.innerHTML = item ? item.description : '';
 
           // Reset the select menus.
           if (item) {

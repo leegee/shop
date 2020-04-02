@@ -41,6 +41,8 @@ The `image` and `largeImage` fields should be URLs. As with the original project
 
 The `sizes` and `quantities` columns control whether or not to display those inputs, and are booleans indicated by being blank or having any content.
 
+The description should contain raw HTML.
+
 To get the `spreadsheetid`, in Sheets, select 'Share', and 'get shareable link':
 
     https://docs.google.com/spreadsheets/d/XXX_XXX_XXX/edit?usp=sharing
