@@ -65,13 +65,22 @@ class ShopDetail extends I18n(PolymerElement) {
             if (item.sizes) {
               this.$.sizeSelect.value = 'M';
             }
+            if (item.options && this.$.optionsSelect.length === 0) {
+              item.options.forEach(optionText => {
+                const optionEl = document.createElement('option');
+                optionEl.value = optionText
+                optionEl.appendChild(document.createTextNode(
+                  optionText.charAt(0).toUpperCase() + optionText.slice(1)
+                ));
+                this.$.optionsSelect.appendChild(optionEl);
+              });
+            }
           }
 
           this.dispatchEvent(new CustomEvent('change-section', {
             bubbles: true, composed: true, detail: {
               category: item ? item.category : '',
               title: item ? item.title : '',
-              // description: item ? item.description.substring(0, 100) : '',
               description: item ? item.description : '',
               image: item ? this.baseURI + item.image : ''
             }

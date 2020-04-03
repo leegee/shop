@@ -35,19 +35,19 @@ Create a `.env` file in the root directory containing:
 
 Create a Google Sheet document with one sheet per shop category each sheet with titled columns, whose text is used by the code:
 
-    name title price description image largeImage sizes quantities
+    name title price description image largeImage sizes quantities options
 
 The `image` and `largeImage` fields should be URLs. As with the original project, the former image is 250 px square, the latter 532 px square.
 
-The `sizes` and `quantities` columns control whether or not to display those inputs, and are booleans indicated by being blank or having any content.
+To get the `spreadsheetid`, in Sheets, select 'Share', and 'get shareable link'. Your spreadsheet ID is embedded within that link.
 
-The description should contain raw HTML.
+The data in the spreadsheet follows the original project model: the `description` should contain raw HTML; the `name` should be URI-friendly, the `title` is displayed on the page.
 
-To get the `spreadsheetid`, in Sheets, select 'Share', and 'get shareable link':
+In addition to the original model, the `sizes` and `quantities` columns control whether or not to display those inputs, and are booleans indicated by being blank or having any content. This is for backwards-compatability.
 
-    https://docs.google.com/spreadsheets/d/XXX_XXX_XXX/edit?usp=sharing
+The column `options` may contain a CSV to form an options list.
 
-your spreadsheet ID is `123_XXX_XXX_XXX`.
+The code to control the interpretation of the spreadsheet is in `shop-category-data`'s `_reformatJson` routine.
 
 Update `src/Config.js` `categoryList` to reflect your Google Sheet, the static being
 an array of objects that reflect the individual sheets that detail the categories:

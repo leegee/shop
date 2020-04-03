@@ -103,7 +103,6 @@
       font-size: inherit;
       margin: 12px 0 32px;
     }
-
   }
 </style>
 
@@ -122,7 +121,9 @@
   <shop-image alt="[[item.title]]" src="[[item.largeImage]]"></shop-image>
   <div class="detail" has-content$="[[_isDefined(item)]]">
     <h1>[[item.title]]</h1>
+
     <div class="price"><shop-currency value=[[item.price]]></shop-currency></div>
+
     <div class="pickers">
 
       <shop-select hidden=[[!item.sizes]]>
@@ -152,7 +153,18 @@
           <shop-underline></shop-underline>
         </shop-md-decorator>
       </shop-select>
+
+      <shop-select hidden=[[!item.options]]>
+        <label id="optionsLabel" prefix>Quantity</label>
+        <select id="optionsSelect" aria-labelledby="optionsLabel">
+        </select>
+        <shop-md-decorator aria-hidden="true">
+          <shop-underline></shop-underline>
+        </shop-md-decorator>
+      </shop-select>
+
     </div>
+
     <div class="description">
       <h2>Description</h2>
       <p id="desc"></p>
