@@ -7,7 +7,7 @@ import { PolymerElement,html } from '@polymer/polymer/polymer-element.js';
  */
 class PaypalButtonExpress extends PolymerElement {
   static get template() {
-    return html`<iframe id="frame" width="100%" height="100px" frameBorder="0"></iframe>`;
+    return html`<iframe id="frame" width="100%" height="250px" frameBorder="0"></iframe>`;
   }
 
   static get is() { return 'paypal-button-express'; }
