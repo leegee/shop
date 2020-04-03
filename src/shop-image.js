@@ -5,7 +5,6 @@ class ShopImage extends PolymerElement {
   static get template() {
     return html`
     <style>
-
       :host {
         display: block;
         position: relative;
@@ -14,10 +13,24 @@ class ShopImage extends PolymerElement {
         background-position: center;
       }
 
+      #bg {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 100%;
+        filter: blur(10pt);
+        --webkit-filter: blur(10pt);
+        opacity: 0.7;
+      }
+
       img {
         @apply --layout-fit;
         max-width: 100%;
         max-height: 100%;
+        height: 100%;
         margin: 0 auto;
         opacity: 0;
         transition: 0.5s opacity;
@@ -26,27 +39,30 @@ class ShopImage extends PolymerElement {
 
     </style>
 
+    <div id='bg'></div>
     <img id="img" alt\$="[[alt]]" on-load="_onImgLoad" on-error="_onImgError">
 `;
   }
 
   static get is() { return 'shop-image'; }
 
-  static get properties() { return {
+  static get properties() {
+    return {
 
-    alt: String,
+      alt: String,
 
-    src: {
-      type: String,
-      observer: '_srcChanged'
-    },
+      src: {
+        type: String,
+        observer: '_srcChanged'
+      },
 
-    placeholderImg: {
-      type: String,
-      observer: '_placeholderImgChanged'
+      placeholderImg: {
+        type: String,
+        observer: '_placeholderImgChanged'
+      }
+
     }
-
-  }}
+  }
 
   _srcChanged(src) {
     this.$.img.removeAttribute('src');
@@ -69,7 +85,8 @@ class ShopImage extends PolymerElement {
   }
 
   _placeholderImgChanged(placeholder) {
-    this.style.backgroundImage = 'url(\'' + placeholder + '\')';
+    // this.style.backgroundImage = 'url(\'' + placeholder + '\')';
+    this.$.bg.style.backgroundImage = 'url(\'' + placeholder + '\')';
   }
 }
 
