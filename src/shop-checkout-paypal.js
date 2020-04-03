@@ -80,22 +80,18 @@ class ShopCheckout extends PolymerElement {
                 type: Number
             },
 
-            // whether to use sandbox mode
             sandbox: {
                 type: Boolean,
                 value: Config.useSandbox,
             },
-            // // sandbox client id (https://developer.paypal.com/developer/applications/create)
             sandboxId: {
                 type: String,
                 value: Config.payPalSandboxClientId,
             },
-            // production client id
             productionId: {
                 type: String,
                 value: Config.payPalClientId,
             },
-            // amount currency
             currency: {
                 type: String,
                 value: () => {
@@ -133,15 +129,6 @@ class ShopCheckout extends PolymerElement {
         this.state = 'init';
     }
 
-    _addPayPal() {
-        // const el = document.createElement('script');
-        // el.src = "https://www.paypal.com/sdk/js?client-id=" + Config.payPalSandboxClientId;
-        // el.onload = () => window.paypal.Buttons().render('#paypal-area');
-        // document.head.appendChild(el);
-        // const topLevel = document.querySelector('body /deep/ #paypal-area');
-        // window.paypal.Buttons().render('#paypal-area');
-    }
-
     /**
      * Sets the initial state.
      */
@@ -154,52 +141,6 @@ class ShopCheckout extends PolymerElement {
         let nativeForm = form._form;
         if (!nativeForm) {
             return;
-        }
-    }
-
-
-    /**
-     * Adds the cart data to the payload that will be sent to the server
-     * and updates the UI to reflect the waiting state.
-     */
-    _willSendRequest(e) {
-        console.log('Enter _willSendRequest');
-        debugger;
-        let form = e.target;
-        let body = form.request && form.request.body;
-
-        this._setWaiting(true);
-
-        if (!body) {
-            return;
-        }
-        // Populate the request body where `cartItemsId[i]` is the ID and `cartItemsQuantity[i]`
-        // is the quantity for some item `i`.
-        body.cartItemsId = [];
-        body.cartItemsQuantity = [];
-
-        this.cart.forEach((cartItem) => {
-            body.cartItemsId.push(cartItem.item.name);
-            body.cartItemsQuantity.push(cartItem.quantity);
-        });
-    }
-
-    /**
-     * Handles the response from the server by checking the response status
-     * and transitioning to the success or error UI.
-     */
-    _didReceiveResponse(e) {
-        let response = e.detail.response;
-
-        this.response = response;
-        this._setWaiting(true);
-
-        if (response.success) {
-            this._pushState('success');
-            this._reset();
-            this.dispatchEvent(new CustomEvent('clear-cart', { bubbles: true, composed: true }));
-        } else {
-            this._pushState('error');
         }
     }
 

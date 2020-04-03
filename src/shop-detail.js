@@ -23,7 +23,6 @@ class ShopDetail extends I18n(PolymerElement) {
 
   static get properties() {
     return {
-
       item: Object,
 
       route: Object,
@@ -41,7 +40,6 @@ class ShopDetail extends I18n(PolymerElement) {
       },
 
       failure: Boolean
-
     }
   }
 
@@ -98,10 +96,13 @@ class ShopDetail extends I18n(PolymerElement) {
   _addToCart() {
     // This event will be handled by shop-app.
     this.dispatchEvent(new CustomEvent('add-cart-item', {
-      bubbles: true, composed: true, detail: {
+      bubbles: true,
+      composed: true,
+      detail: {
         item: this.item,
         quantity: this.$.quantitySelect ? parseInt(this.$.quantitySelect.value, 10) : 1,
         size: this.$.sizeSelect ? this.$.sizeSelect.value : undefined,
+        option: this.$.optionsSelect ? this.$.optionsSelect.value : undefined,
       }
     }));
   }

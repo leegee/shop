@@ -16,6 +16,11 @@
     margin-bottom: 20px;
   }
 
+  .entry-option {
+    font-size: 80%;
+    margin-left: 1em;
+  }
+
   paper-spinner-lite {
     position: fixed;
     top: calc(50% - 14px);
@@ -116,7 +121,7 @@
               <dom-repeat items="[[cart]]" as="entry">
                 <template>
                   <div class="row order-summary-row">
-                    <div class="flex">[[entry.item.title]]</div>
+                    <div class="flex">[[entry.item.title]] <span class='entry-option'>[[entry.option]]</span></div>
                     <div>
                       <div>
                         <shop-currency value=[[_getEntryTotal(entry)]]></shop-currency>
