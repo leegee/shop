@@ -37,7 +37,6 @@ class ShopImage extends PolymerElement {
         @apply --layout-fit;
         max-width: 100%;
         max-height: 100%;
-        height: 100%;
         margin: 0 auto;
         opacity: 0;
         transition: 0.5s opacity;
