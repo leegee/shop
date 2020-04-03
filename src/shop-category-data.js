@@ -76,9 +76,15 @@ class ShopCategoryData extends I18n(PolymerElement) {
       .filter(row => row.length) // Ignore blank rows
       .forEach(shopItems => { // Convert array to object based on 'headers'
         const item = shopItems.reduce((result, value, index) => {
-          if (headers[index] === 'options' && value) {
-            value = value.split(/\s*,\s*/);
+          if (value) {
+            if (headers[index].match(/^(options|sizes|quantities)$/)) {
+              value = value.split(/\s*,\s*/);
+            }
+            else if (headers[index] === 'price' && value.indexOf(',') > -1) {
+              value = value.split(/\s*,\s*/);
+            }
           }
+
           result[headers[index]] = value;
           return result;
         }, {});

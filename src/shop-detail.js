@@ -57,22 +57,18 @@ class ShopDetail extends I18n(PolymerElement) {
 
           // Reset the select menus.
           if (item) {
-            if (item.quantities) {
-              this.$.quantitySelect.value = '1';
-            }
-            if (item.sizes) {
-              this.$.sizeSelect.value = 'M';
-            }
-            if (item.options && this.$.optionsSelect.length === 0) {
-              item.options.forEach(optionText => {
-                const optionEl = document.createElement('option');
-                optionEl.value = optionText
-                optionEl.appendChild(document.createTextNode(
-                  optionText.charAt(0).toUpperCase() + optionText.slice(1)
-                ));
-                this.$.optionsSelect.appendChild(optionEl);
-              });
-            }
+            ['sizes', 'quantities', 'options'].forEach(field => {
+              if (item[field] && this.$[field + 'Select'].length === 0) {
+                item[field].forEach(optionText => {
+                  const optionEl = document.createElement('option');
+                  optionEl.value = optionText;
+                  optionEl.appendChild(document.createTextNode(
+                    optionText.charAt(0).toUpperCase() + optionText.slice(1)
+                  ));
+                  this.$[field + "Select"].appendChild(optionEl);
+                });
+              }
+            });
           }
 
           this.dispatchEvent(new CustomEvent('change-section', {
