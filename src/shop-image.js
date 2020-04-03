@@ -13,7 +13,7 @@ class ShopImage extends PolymerElement {
         background-position: center;
       }
 
-      #bg {
+      #bg-blur, #bg-bw {
         display: block;
         position: relative;
         overflow: hidden;
@@ -21,6 +21,13 @@ class ShopImage extends PolymerElement {
         background-position: center;
         width: 100%;
         height: 100%;
+      }
+      #bg-blur {
+        opacity: 1;
+        -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+        filter: grayscale(100%);
+      }
+      #bg-bw {
         filter: blur(10pt);
         --webkit-filter: blur(10pt);
         opacity: 0.7;
@@ -39,7 +46,9 @@ class ShopImage extends PolymerElement {
 
     </style>
 
-    <div id='bg'></div>
+    <div id='bg-bw'>
+      <div id='bg-blur'></div>
+    </div>
     <img id="img" alt\$="[[alt]]" on-load="_onImgLoad" on-error="_onImgError">
 `;
   }
@@ -86,7 +95,7 @@ class ShopImage extends PolymerElement {
 
   _placeholderImgChanged(placeholder) {
     // this.style.backgroundImage = 'url(\'' + placeholder + '\')';
-    this.$.bg.style.backgroundImage = 'url(\'' + placeholder + '\')';
+    this.$["bg-blur"].style.backgroundImage = 'url(\'' + placeholder + '\')';
   }
 }
 
