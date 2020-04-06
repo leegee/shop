@@ -39,7 +39,19 @@ class ShopDetail extends I18n(PolymerElement) {
         observer: '_offlineChanged'
       },
 
-      failure: Boolean
+      failure: Boolean,
+
+      _computedPrice: {
+        type: Number,
+      },
+
+      _selectedSize: {
+        type: Number,
+      },
+
+      _selectedQuantity: {
+        type: Number,
+      },
     }
   }
 
@@ -47,6 +59,27 @@ class ShopDetail extends I18n(PolymerElement) {
     return [
       '_itemChanged(item, visible)'
     ]
+  }
+
+  ready() {
+    super.ready();
+    this.$.sizesSelect.addEventListener('change', () => this._computePrice());
+    this.$.quantitiesSelect.addEventListener('change', () => this._computePrice());
+  }
+
+  _computePrice(e) {
+    const item = this.get('item');
+    if (item) {
+      console.log('item price, sizes: ', item.price, item.sizes);
+      if ((item.price instanceof Array) && (item.sizes instanceof Array)) {
+        this._computedPrice = item.price[this.$.sizesSelect.selectedIndex];
+      } else {
+        this._computedPrice = item.price;
+      }
+    }
+
+    this._computedPrice = item.price[this.$.sizesSelect.selectedIndex] * this.$.quantitiesSelect.value;
+    console.log('Price', item.price[this.$.sizesSelect.selectedIndex]);
   }
 
   _itemChanged(item, visible) {
@@ -59,8 +92,11 @@ class ShopDetail extends I18n(PolymerElement) {
           if (item) {
             ['sizes', 'quantities', 'options'].forEach(field => {
               if (item[field] && this.$[field + 'Select'].length === 0) {
-                item[field].forEach(optionText => {
+                item[field].forEach((optionText, index) => {
                   const optionEl = document.createElement('option');
+                  if (index === 0) {
+                    optionEl.setAttribute('selected', true);
+                  }
                   optionEl.value = optionText;
                   optionEl.appendChild(document.createTextNode(
                     optionText.charAt(0).toUpperCase() + optionText.slice(1)
@@ -69,6 +105,7 @@ class ShopDetail extends I18n(PolymerElement) {
                 });
               }
             });
+            this._computePrice();
           }
 
           this.dispatchEvent(new CustomEvent('change-section', {

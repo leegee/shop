@@ -43,9 +43,7 @@ To get the `spreadsheetid`, in Sheets, select 'Share', and 'get shareable link'.
 
 The data in the spreadsheet follows the original project model: the `description` should contain raw HTML; the `name` should be URI-friendly, the `title` is displayed on the page.
 
-In addition to the original model, the `sizes` and `quantities` columns control whether or not to display those inputs, and are booleans indicated by being blank or having any content. This is for backwards-compatability.
-
-The column `options` may contain a CSV to form an options list.
+In addition to the original model, the `options`, `sizes` and `quantities` columns control whether or not to display those inputs, and are CSVs. User selection of `sizes` and `quantities` will effect the price, but `options` is just a note to the seller.
 
 The code to control the interpretation of the spreadsheet is in `shop-category-data`'s `_reformatJson` routine.
 
