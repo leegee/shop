@@ -75,7 +75,7 @@ class ShopCartData extends PolymerElement {
   _computeTotal() {
     if (this.cart) {
       return this.cart.reduce((total, entry) => {
-        return total + entry.quantity * entry.item.price;
+        return total + entry.totalPrice
       }, 0);
     }
 
