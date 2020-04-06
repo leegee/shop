@@ -96,13 +96,15 @@ class ShopDetail extends I18n(PolymerElement) {
             ['sizes', 'quantities', 'options'].forEach(field => {
               if (item[field] && this.$[field + 'Select'].length === 0) {
                 item[field].forEach((optionText, index) => {
+                  console.debug('Set option %d for %s to %s', index, field, optionText);
+                  const optionTextString = optionText.toString()
                   const optionEl = document.createElement('option');
                   if (index === 0) {
                     optionEl.setAttribute('selected', true);
                   }
                   optionEl.value = optionText;
                   optionEl.appendChild(document.createTextNode(
-                    optionText.charAt(0).toUpperCase() + optionText.slice(1)
+                    optionTextString.charAt(0).toUpperCase() + optionTextString.slice(1)
                   ));
                   this.$[field + "Select"].appendChild(optionEl);
                 });

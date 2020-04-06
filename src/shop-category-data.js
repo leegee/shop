@@ -80,6 +80,13 @@ class ShopCategoryData extends I18n(PolymerElement) {
             if (headers[index].match(/^(price|options|sizes|quantities)$/) && value.indexOf(',') > -1) {
               value = value.split(/\s*,\s*/);
             }
+            if (headers[index].match(/^(price|sizes|quantities)$/)) {
+              if (value instanceof Array) {
+                value = value.map(_ => Number(_));
+              } else {
+                value = Number(value);
+              }
+            }
           }
           result[headers[index]] = value;
           return result;
