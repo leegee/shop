@@ -129,16 +129,20 @@ class ShopDetail extends I18n(PolymerElement) {
 
   _addToCart() {
     // This event will be handled by shop-app.
+    const detail = {
+      item: this.item,
+      totalPrice: this._computedPrice,
+      quantity: this.$.quantitiesSelect && !this.$.quantitiesSelect.hidden ? Number(this.$.quantitiesSelect.value) : 1,
+      size: this.$.sizesSelect && !this.$.sizesSelect.hidden ? this.$.sizesSelect.value : undefined,
+      option: this.$.optionsSelect && !this.$.optionsSelect.hidden ? this.$.optionsSelect.value : undefined,
+    };
+
+    console.log('Add to cart: ', detail, this.$.quantitiesSelect);
+
     this.dispatchEvent(new CustomEvent('add-cart-item', {
       bubbles: true,
       composed: true,
-      detail: {
-        item: this.item,
-        totalPrice: this._computedPrice,
-        quantity: this.$.quantitiesSelect ? Number(this.$.quantitiesSelect.value) : 1,
-        size: this.$.sizesSelect ? this.$.sizesSelect.value : undefined,
-        option: this.$.optionsSelect ? this.$.optionsSelect.value : undefined,
-      }
+      detail: detail
     }));
   }
 

@@ -114,20 +114,22 @@
 <!--
     shop-category-data provides the item data for a given category and item name.
   -->
-<shop-category-data id="categoryData" category-name="[[routeData.category]]" item-name="[[routeData.item]]" item="{{item}}"
-  failure="{{failure}}"></shop-category-data>
+<shop-category-data id="categoryData" category-name="[[routeData.category]]" item-name="[[routeData.item]]"
+  item="{{item}}" failure="{{failure}}"></shop-category-data>
 
 <div id="content" hidden$="[[failure]]">
   <shop-image alt="[[item.title]]" src="[[item.largeImage]]"></shop-image>
   <div class="detail" has-content$="[[_isDefined(item)]]">
     <h1>[[item.title]]</h1>
 
-    <div class="price"><shop-currency value=[[_computedPrice]]></shop-currency></div>
+    <div class="price">
+      <shop-currency value=[[_computedPrice]]></shop-currency>
+    </div>
 
     <div class="pickers">
       <shop-select hidden=[[!item.sizes]]>
         <label id="sizesLabel" prefix>Size</label>
-        <select id="sizesSelect" aria-labelledby="sizesLabel">
+        <select id="sizesSelect" aria-labelledby="sizesLabel" hidden=[[!item.sizes]]>
         </select>
         <shop-md-decorator aria-hidden="true">
           <shop-underline></shop-underline>
@@ -136,7 +138,7 @@
 
       <shop-select hidden=[[!item.quantities]]>
         <label id="quantitiesLabel" prefix>Quantity</label>
-        <select id="quantitiesSelect" aria-labelledby="quantitiesLabel">
+        <select id="quantitiesSelect" aria-labelledby="quantitiesLabel" hidden=[[!item.quantities]]>
         </select>
         <shop-md-decorator aria-hidden="true">
           <shop-underline></shop-underline>
@@ -145,7 +147,7 @@
 
       <shop-select hidden=[[!item.options]]>
         <label id="optionsLabel" prefix>Options</label>
-        <select id="optionsSelect" aria-labelledby="optionsLabel">
+        <select id="optionsSelect" aria-labelledby="optionsLabel" hidden=[[!item.options]]>
         </select>
         <shop-md-decorator aria-hidden="true">
           <shop-underline></shop-underline>
@@ -168,4 +170,5 @@
     shop-network-warning shows a warning message when the items can't be rendered due
     to network conditions.
   -->
-<shop-network-warning hidden$="[[!failure]]" offline="[[offline]]" on-try-reconnect="_tryReconnect"></shop-network-warning>
+<shop-network-warning hidden$="[[!failure]]" offline="[[offline]]" on-try-reconnect="_tryReconnect">
+</shop-network-warning>
