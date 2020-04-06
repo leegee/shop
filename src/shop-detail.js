@@ -127,12 +127,6 @@ class ShopDetail extends I18n(PolymerElement) {
     }
   }
 
-  _unescapeText(text) {
-    let elem = document.createElement('textarea');
-    elem.innerHTML = text;
-    return elem.textContent;
-  }
-
   _addToCart() {
     // This event will be handled by shop-app.
     this.dispatchEvent(new CustomEvent('add-cart-item', {
