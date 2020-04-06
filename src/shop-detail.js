@@ -70,16 +70,19 @@ class ShopDetail extends I18n(PolymerElement) {
   _computePrice(e) {
     const item = this.get('item');
     if (item) {
-      console.log('item price, sizes: ', item.price, item.sizes);
-      if ((item.price instanceof Array) && (item.sizes instanceof Array)) {
+      console.log('_computePrice for item price, sizes, quantities: ', item.price, item.sizes, item.quantity);
+      if (item.sizes && (item.price instanceof Array) && (item.sizes instanceof Array)) {
         this._computedPrice = item.price[this.$.sizesSelect.selectedIndex];
       } else {
         this._computedPrice = item.price;
       }
+
+      if (item.quantities) {
+        this._computedPrice = this._computedPrice * this.$.quantitiesSelect.value;
+      }
     }
 
-    this._computedPrice = item.price[this.$.sizesSelect.selectedIndex] * this.$.quantitiesSelect.value;
-    console.log('Price', item.price[this.$.sizesSelect.selectedIndex]);
+    console.log('_computePrice final', this._computedPrice);
   }
 
   _itemChanged(item, visible) {
@@ -105,8 +108,10 @@ class ShopDetail extends I18n(PolymerElement) {
                 });
               }
             });
+
             this._computePrice();
           }
+
 
           this.dispatchEvent(new CustomEvent('change-section', {
             bubbles: true, composed: true, detail: {
@@ -132,9 +137,9 @@ class ShopDetail extends I18n(PolymerElement) {
       bubbles: true,
       composed: true,
       detail: {
-        item: this.item,
-        quantity: this.$.quantitySelect ? parseInt(this.$.quantitySelect.value, 10) : 1,
-        size: this.$.sizeSelect ? this.$.sizeSelect.value : undefined,
+        item: this._computedPrice, // this.item,
+        quantity: this.$.quantitiesSelect ? Number(this.$.quantitiesSelect.value) : 1,
+        size: this.$.sizesSelect ? this.$.sizesSelect.value : undefined,
         option: this.$.optionsSelect ? this.$.optionsSelect.value : undefined,
       }
     }));
