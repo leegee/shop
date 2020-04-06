@@ -98,13 +98,32 @@ class ShopCheckout extends PolymerElement {
                     return document.querySelector('shop-app').getAttribute('currency');
                 },
             },
+            reference: {
+                type: String,
+            }
         }
     }
 
     static get observers() {
         return [
+            '_updateRef(cart.splices)',
             '_updateState(routeActive, routeData)',
         ]
+    }
+
+    _updateRef(cart) {
+        if (this.cart) {
+            this.reference = this.cart.reduce(
+                (acc, entry) => acc + '"' + entry.item.title + '" ' +
+                    '(' + entry.item.name + ') ' +
+                    (entry.size ? ('size: ' + entry.size) : '') +
+                    (entry.options ? ('options: ' + entry.options) : '') +
+                    ' @ ' + entry.totalPrice +
+                    '. ',
+                ''
+            );
+            console.log('Set reference to %s', this.reference);
+        }
     }
 
     _pushState(state) {
