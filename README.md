@@ -10,15 +10,17 @@ New features:
 * Added Configuration object
 * Makes Google Analytics optional via Config
 * Makes sizes and quantities optional (eg for selling paintings)
-* The beginning of optional translations via [i18next](https://www.i18next.com/)
+* Allows a price per size via CSV in the Sheets fields (eg for different sized prints)
+* Optional translations via [i18next](https://www.i18next.com/)
+* All price computations now take place in the details page
+* PayPal express checkout
 
 ## To Do
 
 Outstanding features:
 
-* Integrates code from morbidick's [PayPal checkout](https://github.com/morbidick/paypal-express-checkout/blob/master/paypal.html) (in progress: 70%)
 * i18n of static elements and sheet details
-* Take sizes/quantities as ranges from Sheet, not just booleans
+* Shopping basket page - remove change quantities when not appropriate after details page does the computation, or revisit details' `_computePrice` method and `totalPrice` field used in `shop-app`/`shop-cart-data`/cart view.
 
 ## Environment and Configuration
 
@@ -60,9 +62,9 @@ an array of objects that reflect the individual sheets that detail the categorie
 
 ### PayPal Integration
 
-Integrates PayPal using the simplest of all APIs via Morbidick's paypal-button-express.
-Settings are in `src/Config.js`.
+Integrates PayPal using the simplest of all APIs via Morbidick's [PayPal checkout](https://github.com/morbidick/paypal-express-checkout/blob/master/paypal.html): settings are in `.env` via `src/Config.js`.
 
+Create an app via [the PayPal develpoer dashboard](https://developer.paypal.com/developer/)applications/ - do not use Braintree. Create and use a [PayPal test account](https://developer.paypal.com/developer/accounts/).
 
 
 
