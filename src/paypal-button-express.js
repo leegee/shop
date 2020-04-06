@@ -44,7 +44,7 @@ class PaypalButtonExpress extends PolymerElement {
       // whether events bubble
       bubbles: {
         type: Boolean,
-        value: false,
+        value: true,
       },
       // the paypal response data
       response: {
@@ -158,6 +158,7 @@ class PaypalButtonExpress extends PolymerElement {
     /**
      * @event paypal-error Fired on paypal error or window close.
      */
+    console.log('paypal-button-express._fireError', data);
     this.dispatchEvent(new CustomEvent('paypal-error', {
       detail: data,
       bubbles: this.bubbles,

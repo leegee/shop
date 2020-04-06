@@ -100,7 +100,11 @@ class ShopCheckout extends PolymerElement {
             },
             reference: {
                 type: String,
-            }
+            },
+
+            responseMessage: {
+                type: String,
+            },
         }
     }
 
@@ -184,6 +188,19 @@ class ShopCheckout extends PolymerElement {
         }));
     }
 
+    _onPaypalSuccess(e) {
+        console.log('Enter onPaypalSuccess', e);
+        this.responseMessage = 'Thank you for your order, which has now been placed. You should hear from PayPal and ourselves shortly.';
+        this._pushState('success');
+        this._reset();
+        this.dispatchEvent(new CustomEvent('clear-cart', { bubbles: true, composed: true }));
+    }
+
+    _onPaypalError(e) {
+        console.log('Enter onPaypalError', e);
+        this.responseMessage = '<pre>Details: ' + JSON.stringify(e, {}, 2) + '</pre>';
+        this._pushState('error');
+    }
 }
 
 customElements.define(ShopCheckout.is, ShopCheckout);
