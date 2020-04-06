@@ -133,7 +133,8 @@ class ShopDetail extends I18n(PolymerElement) {
       bubbles: true,
       composed: true,
       detail: {
-        item: this._computedPrice, // this.item,
+        item: this.item,
+        totalPrice: this._computedPrice,
         quantity: this.$.quantitiesSelect ? Number(this.$.quantitiesSelect.value) : 1,
         size: this.$.sizesSelect ? this.$.sizesSelect.value : undefined,
         option: this.$.optionsSelect ? this.$.optionsSelect.value : undefined,

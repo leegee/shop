@@ -149,7 +149,8 @@ class ShopCheckout extends PolymerElement {
     }
 
     _getEntryTotal(entry) {
-        return entry.quantity * entry.item.price;
+        return entry.totalPrice;
+        // return entry.quantity * entry.item.price;
     }
 
     _visibleChanged(visible) {
