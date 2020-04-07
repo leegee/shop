@@ -18,7 +18,8 @@
     "start": "npm run wp:dev",
     "wp:build": "webpack --config ./webpack.prod.conf.js",
     "wp:build:dev": "webpack --config ./webpack.dev.conf.js",
-    "wp:test-dist": "node -e \"require('connect')().use(require('serve-static')(__dirname+'/dist')).listen(9090, () => { console.log('Server running on http://localhost:9090 ...'); });\""
+    "wp:serve-static:dist": "node -e \"require('connect')().use(require('serve-static')(__dirname+'/dist')).listen(9090, () => { console.log('Server running on http://localhost:9090 ...'); });\"",
+    "wp:serve-static:prod": "node -e \"require('connect')().use(require('serve-static')(__dirname+'/dist')).listen(9191, () => { console.log('Server running on http://localhost:9191 ...'); });\""
   },
   "dependencies": {
     "@polymer/app-layout": "^3.0.0",
@@ -45,6 +46,9 @@
     "paypal-checkout": "^4.0.311"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^1.0.0",
     "connect": "^3.6.6",
     "copy-webpack-plugin": "^4.6.0",
@@ -62,7 +66,7 @@
     "ts-loader": "^5.3.0",
     "typescript": "^3.1.6",
     "wct-browser-legacy": "^1.0.2",
-    "webpack": "^4.25.1",
+    "webpack": "^4.42.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
   }
