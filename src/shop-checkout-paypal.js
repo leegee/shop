@@ -1,12 +1,6 @@
-// const paypal = require('paypal-checkout');
-// const client = require('braintree-web/client');
-// const paypalCheckout = require('braintree-web/paypal-checkout');
-
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import '@polymer/app-route/app-route.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
-import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
-import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
 import './shop-button.js';
 import './shop-common-styles.js';

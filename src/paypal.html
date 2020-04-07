@@ -9,9 +9,7 @@
     let initialised;
 
     function sendMessage(type, data) {
-      console.log('PP sendMessage', type, data);
       if (window.parent) {
-        console.log('PP sendMessage to parent');
         window.parent.postMessage({
           type,
           data
@@ -32,8 +30,6 @@
 
     // data bridge recieving
     window.addEventListener("message", (event) => {
-      console.log('INCOMING:', event.data.__postRobot__);
-
       // bail for wrong origin
       if (event.origin !== `${window.location.protocol}//${window.location.host}`) {
         return;
@@ -49,7 +45,6 @@
           break;
         case "paypal-window-success-ack":
           window.clearTimeout(bridgeTimeoutHandler);
-          console.log('Received PayPal paypal-window-success-ack', event.data);
           break;
         case "paypal-window-update":
           let data = event.data.data;

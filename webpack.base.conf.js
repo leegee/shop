@@ -25,11 +25,11 @@ module.exports = {
         test: /\.html$/,
         use: 'html-loader'
       },
-      {
-        test: /\.ts?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
-      },
+      // {
+      //   test: /\.ts?$/,
+      //   use: 'ts-loader',
+      //   exclude: /node_modules/
+      // },
       // {
       //   test: /\.m?js$/,
       //   exclude: /(node_modules)/,
@@ -69,10 +69,10 @@ module.exports = {
         from: path.resolve(__dirname, './images'),
         to: 'images'
       },
-      {
-        from: path.resolve(__dirname, './data'),
-        to: 'data'
-      },
+      // {
+      //   from: path.resolve(__dirname, './data'),
+      //   to: 'data'
+      // },
       {
         from: path.join(
           path.resolve(__dirname, './node_modules/@webcomponents/webcomponentsjs/'),
