@@ -60,7 +60,7 @@
       "type": "script",
       "weight": 1
     },
-    "src/shop-checkout.js": {
+    "src/shop-checkout-paypal.js": {
       "type": "script",
       "weight": 1
     },
