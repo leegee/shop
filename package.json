@@ -14,12 +14,12 @@
     "old:serve:prpl-server": "prpl-server --root server/build",
     "old:serve:static": "polymer serve --port 5000 build/es5-bundled",
     "test": "rm -rf build/ && polymer lint && polymer test",
-    "wp:dev": "webpack-dev-server --open --config ./webpack.dev.conf.js",
-    "start": "npm run wp:dev",
-    "wp:build": "webpack --config ./webpack.prod.conf.js",
-    "wp:build:dev": "webpack --config ./webpack.dev.conf.js",
-    "wp:serve-static:dist": "node -e \"require('connect')().use(require('serve-static')(__dirname+'/dist')).listen(9090, () => { console.log('Server running on http://localhost:9090 ...'); });\"",
-    "wp:serve-static:prod": "node -e \"require('connect')().use(require('serve-static')(__dirname+'/dist')).listen(9191, () => { console.log('Server running on http://localhost:9191 ...'); });\""
+    "dev": "webpack-dev-server --open --config ./webpack.dev.conf.js",
+    "start": "npm run dev",
+    "build": "webpack --config ./webpack.prod.conf.js",
+    "build:dev": "webpack --config ./webpack.dev.conf.js",
+    "serve-static:dist": "node -e \"require('connect')().use(require('serve-static')(__dirname+'/dist')).listen(9090, () => { console.log('Server running on http://localhost:9090 ...'); });\"",
+    "serve-static:prod": "node -e \"require('connect')().use(require('serve-static')(__dirname+'/dist')).listen(9191, () => { console.log('Server running on http://localhost:9191 ...'); });\""
   },
   "dependencies": {
     "@polymer/app-layout": "^3.0.0",
