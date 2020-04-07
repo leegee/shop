@@ -18,8 +18,8 @@
     "start": "npm run dev",
     "build": "webpack --config ./webpack.prod.conf.js",
     "build:dev": "webpack --config ./webpack.dev.conf.js",
-    "serve-static:dist": "node -e \"require('connect')().use(require('serve-static')(__dirname+'/dist')).listen(9090, () => { console.log('Server running on http://localhost:9090 ...'); });\"",
-    "serve-static:prod": "node -e \"require('connect')().use(require('serve-static')(__dirname+'/dist')).listen(9191, () => { console.log('Server running on http://localhost:9191 ...'); });\""
+    "serve:dev": "node -e \"require('connect')().use(require('serve-static')(__dirname+'/dist')).listen(9090, () => { console.log('Server running on http://localhost:9090 ...'); });\"",
+    "serve:prod": "node -e \"require('connect')().use(require('serve-static')(__dirname+'/dist')).listen(9191, () => { console.log('Server running on http://localhost:9191 ...'); });\""
   },
   "dependencies": {
     "@polymer/app-layout": "^3.0.0",

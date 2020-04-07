@@ -5,6 +5,8 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 const PUBLIC_PATH = '';
 
+delete config.devtool;
+
 config.entry = {
   main: './src/shop-app.js'
 };

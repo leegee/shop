@@ -69,10 +69,6 @@ module.exports = {
         from: path.resolve(__dirname, './images'),
         to: 'images'
       },
-      // {
-      //   from: path.resolve(__dirname, './data'),
-      //   to: 'data'
-      // },
       {
         from: path.join(
           path.resolve(__dirname, './node_modules/@webcomponents/webcomponentsjs/'),
