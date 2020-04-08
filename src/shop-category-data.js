@@ -68,7 +68,8 @@ class ShopCategoryData extends I18n(PolymerElement) {
     }
   }
 
-  _reformatJson(googleSheetsJson) {
+  _reformatJson(googleSheetsJson, category) {
+    console.debug('Load category', category);
     const headers = googleSheetsJson.values[0];
     const rv = [];
     googleSheetsJson.values
@@ -91,7 +92,10 @@ class ShopCategoryData extends I18n(PolymerElement) {
           result[headers[index]] = value;
           return result;
         }, {});
+
+        item.categoryName = category.name;
         rv.push(item);
+
       });
     return rv;
   }
@@ -126,7 +130,7 @@ class ShopCategoryData extends I18n(PolymerElement) {
         return res.json();
       })
       .then(json => {
-        return this._reformatJson(json);
+        return this._reformatJson(json, req.category);
       })
       .then(json => {
         req.onLoad.bind(this)(json);

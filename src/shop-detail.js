@@ -114,10 +114,9 @@ class ShopDetail extends I18n(PolymerElement) {
             this._computePrice();
           }
 
-
           this.dispatchEvent(new CustomEvent('change-section', {
             bubbles: true, composed: true, detail: {
-              category: item ? item.category : '',
+              category: item ? item.categoryName : '',
               title: item ? item.title : '',
               description: item ? item.description : '',
               image: item ? this.baseURI + item.image : ''

@@ -77,7 +77,8 @@ class ShopApp extends I18n(PolymerElement) {
         value() {
           return this.languages;
         }
-      }
+      },
+
     }
   }
 
@@ -224,11 +225,12 @@ class ShopApp extends I18n(PolymerElement) {
   // Elements in the app can notify section changes.
   // Response by a11y announcing the section and syncronizing the category.
   _onChangeSection(event) {
-    let detail = event.detail;
+    const detail = event.detail;
 
     // Scroll to the top of the page when navigating to a non-list page. For list view,
     // scroll to the last saved position only if the category has not changed.
     let scrollTop = 0;
+
     if (this.page === 'list') {
       if (this.categoryName === detail.category) {
         scrollTop = this._listScrollTop;
