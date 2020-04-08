@@ -2,6 +2,7 @@ const config = require('./webpack.dev.conf');
 
 const webpack = require('webpack');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const PUBLIC_PATH = '';
 
@@ -23,5 +24,19 @@ config.plugins.push(
     }
   ),
 );
+
+config.optimization = {
+  minimizer: [
+    new TerserPlugin({
+      terserOptions: {
+        sourceMap: false,
+        extractComments: 'all',
+        compress: {
+          drop_console: true
+        }
+      }
+    })
+  ]
+};
 
 module.exports = config;
