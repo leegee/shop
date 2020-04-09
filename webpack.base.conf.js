@@ -25,21 +25,42 @@ module.exports = {
         test: /\.html$/,
         use: 'html-loader'
       },
-      // {
-      //   test: /\.ts?$/,
-      //   use: 'ts-loader',
-      //   exclude: /node_modules/
-      // },
-      // {
-      //   test: /\.m?js$/,
-      //   exclude: /(node_modules)/,
-      //   use: {
-      //     loader: 'babel-loader',
-      //     options: {
-      //       presets: ['@babel/preset-env']
-      //     }
-      //   }
-      // },
+      {
+        test: /\.ts?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                "@babel/preset-env",
+                {
+                  "targets": {
+                    "chrome": "58",
+                    "ie": "11",
+                    "edge": "40"
+                  }
+                }
+              ]
+            ],
+            plugins: [
+              ["@babel/plugin-transform-runtime", {
+                "regenerator": true
+              }],
+              ["@babel/plugin-proposal-object-rest-spread", {
+                "loose": true,
+                "useBuiltIns": true
+              }],
+
+            ],
+          }
+        }
+      },
     ]
   },
   resolve: {
